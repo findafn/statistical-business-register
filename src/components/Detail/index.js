@@ -1,15 +1,31 @@
 import React from 'react'
 import { Container, Row, Col } from 'reactstrap';
-import { InputGroup, InputGroupAddon, Input } from 'reactstrap';
-import { Button } from 'reactstrap';
-import { Table } from 'reactstrap';
-import { Form, FormGroup, Label, FormText } from 'reactstrap';
+import { InputGroup, InputGroupAddon, Input, Button } from 'reactstrap';
+import { TabContent, TabPane, Table } from 'reactstrap';
 
 import Indikator from './Indikator';
 import Umum from './Umum';
 
 class Detail extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      activeItem: 'Umum',
+    };
+  }
+
+  toggle(Item) {
+    if (this.state.activeItem !== Item) {
+      this.setState({
+        activeItem: Item
+      });
+    }
+  }
+  
   render() {
+    const { activeItem } = this.state
     return (
       <div className="detail-box">
       <Container>
@@ -31,10 +47,10 @@ class Detail extends React.PureComponent {
               <div className="detail-box">
                 <Row>
                   <Col xs="6">
-                    <Button color="info">Variabel Umum</Button>
+                    <Button color="info" active={activeItem === 'Umum'} onClick={() => { this.toggle('Umum'); }}>Variabel Umum</Button>
                   </Col>
                   <Col xs="6">
-                    <Button color="info">Variabel Indikator</Button>
+                    <Button color="info" active={activeItem === 'Indikator'} onClick={() => { this.toggle('Indikator'); }}>Variabel Indikator</Button>
                   </Col>
                 </Row><br />
                 <p>Daftar Perubahan</p>
@@ -63,7 +79,14 @@ class Detail extends React.PureComponent {
                 </div>
               </Col>
               <Col xs="6">
-                <Umum />
+              <TabContent activeTab={activeItem}>
+                <TabPane tabId="Umum">
+                  <Umum />
+                </TabPane>
+                <TabPane tabId="Indikator">
+                  <Indikator />
+                </TabPane>
+              </TabContent>
               </Col>
             </Row>
           </Col>

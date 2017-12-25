@@ -13,8 +13,10 @@ class App extends React.PureComponent {
   render() {
     return (
       <BrowserRouter>
+      <div>
         <Route exact path="" component={Home} />
-        {/* <Route exact path="/tes" component={SideBar} /> */}
+        <Route exact path="/login" component={Login} />
+      </div>
       </BrowserRouter>
     );
   }
