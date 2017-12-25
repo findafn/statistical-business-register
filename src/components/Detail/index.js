@@ -5,6 +5,7 @@ import { TabContent, TabPane, Table } from 'reactstrap';
 
 import Indikator from './Indikator';
 import Umum from './Umum';
+import InputSearch from '../commons/InputSearch';
 
 class Detail extends React.PureComponent {
   constructor(props) {
@@ -32,12 +33,7 @@ class Detail extends React.PureComponent {
         <Row>
           <Col xs="10">
             <p>Cari berdasarkan ID SBR</p>
-            <div>
-              <InputGroup>
-                <Input placeholder="Masukkan ID SBR" />
-                <InputGroupAddon>Cari</InputGroupAddon>
-              </InputGroup>
-            </div>
+            <InputSearch />
           </Col>
         </Row>
         <Row>
