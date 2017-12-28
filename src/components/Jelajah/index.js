@@ -1,19 +1,17 @@
 import React from 'react'
-import { Button } from 'reactstrap';
-import { Table } from 'reactstrap';
-import { TabContent, TabPane, Nav, NavItem, NavLink, Card, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { Button, Table } from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink, } from 'reactstrap';
 
 class Jelajah extends React.PureComponent {
   render() {
     return (
       <div className="inner-box">
         <Nav>
-              <NavItem>
-                <NavLink href="../SideBar"><Button color="info">Sinkronkan dari Data ADAU</Button></NavLink>
-              </NavItem>
+          <NavItem>
+            <NavLink href="../SideBar"><Button color="info">Sinkronkan dari Data ADAU</Button></NavLink>
+          </NavItem>
         </Nav>
-        
-        <p>Jumlah Total Perusahaan :</p><br />
+        <div className="loc-center">Jumlah Total Perusahaan :</div>
         <div>
           <Table>
             <thead>

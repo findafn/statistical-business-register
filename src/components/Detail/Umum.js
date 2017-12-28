@@ -1,86 +1,107 @@
 import React from 'react'
-import { Container, Row, Col } from 'reactstrap';
-import { InputGroup, InputGroupAddon, Input } from 'reactstrap';
-import { Button } from 'reactstrap';
-import { Table } from 'reactstrap';
-import { Form, FormGroup, Label, FormText } from 'reactstrap'
+import { Form, FormGroup, Label, Row, Col, Input } from 'reactstrap'
+
+import ButtonSave from '../../commons/ButtonSave';
+import ButtonAdd from '../../commons/ButtonAdd';
 
 class Umum extends React.PureComponent {
-    render() {
-        return(
-            <div className="detail-box">
-            <p>Detail Perusahaan</p>
-            <Form>
-                <FormGroup row>
-                <Label for="Nama-Perusahaan" sm={4}>Nama Perusahaan</Label>
-                <Col sm={8}>
-                    <Input type="text" name="text" id="Nama-Perusahaan" value="Nama Perusahaan" />
-                </Col>
-                </FormGroup>
-                <FormGroup row>
-                <Label for="Nama-Komersial" sm={4}>Nama Komersial</Label>
-                <Col sm={8}>
-                    <Input type="text" name="text" id="Nama-Komersial" value="Nama Komersial" />
-                </Col>
-                </FormGroup>
-                <FormGroup row>
-                <Label for="Unit-Statistik" sm={4}>Unit Statistik</Label>
-                <Col sm={8}>
-                    <Input type="text" name="text" id="Unit-Statistik" value="Unit Statistik" />
-                </Col>
-                </FormGroup>
-                <FormGroup row>
-                <Label for="Nama Perusahaan" sm={4}>Kegiatan Utama</Label>
-                <Col sm={8}>
-                    <Input type="text" name="text" id="Nama-Perusahaan" value="Kegiatan Utama" />
-                </Col>
-                </FormGroup>
-                <FormGroup row>
-                <Label for="Nama Perusahaan" sm={4}>Kategori KBLI</Label>
-                <Col sm={8}>
-                    <Input type="text" name="text" id="Nama-Perusahaan" value="Kategori KBLI" />
-                </Col>
-                </FormGroup>
-                <FormGroup row>
-                <Label for="Nama Perusahaan" sm={4}>Produk Utama</Label>
-                <Col sm={8}>
-                    <Input type="text" name="text" id="Nama-Perusahaan" value="Produk Utama" />
-                </Col>
-                </FormGroup>
-                <FormGroup row>
-                <Label for="Nama-Komersial" sm={4}>Nama Komersial</Label>
-                <Col sm={8}>
-                    <Input type="text" name="text" id="Nama-Komersial" value="Nama Komersial" />
-                </Col>
-                </FormGroup>
-                <FormGroup row>
-                <Label for="Unit-Statistik" sm={4}>Unit Statistik</Label>
-                <Col sm={8}>
-                    <Input type="text" name="text" id="Unit-Statistik" value="Unit Statistik" />
-                </Col>
-                </FormGroup>
-                <FormGroup row>
-                <Label for="Nama Perusahaan" sm={4}>Kegiatan Utama</Label>
-                <Col sm={8}>
-                    <Input type="text" name="text" id="Nama-Perusahaan" value="Kegiatan Utama" />
-                </Col>
-                </FormGroup>
-                <FormGroup row>
-                <Label for="Nama Perusahaan" sm={4}>Kategori KBLI</Label>
-                <Col sm={8}>
-                    <Input type="text" name="text" id="Nama-Perusahaan" value="Kategori KBLI" />
-                </Col>
-                </FormGroup>
-                <FormGroup row>
-                <Label for="Nama Perusahaan" sm={4}>Produk Utama</Label>
-                <Col sm={8}>
-                    <Input type="text" name="text" id="Nama-Perusahaan" value="Produk Utama" />
-                </Col>
-                </FormGroup>
-            </Form>
-            </div>
-        );
-    }
+  constructor(props) {
+    super(props);
+    this.onChangeSearch = this.onChangeSearch.bind(this);
+    this.state = {
+      idSBR: '',
+    };
+  }
+
+  onChangeSearch(idSBR) {
+    this.setState(p => ({
+      ...p,
+      idSBR,
+    }));
+  }
+  render() {
+    return (
+      <div className="detail-box">
+        <p><b>Detail Perusahaan</b></p>
+        <Form>
+          <FormGroup row>
+            <Label for="Nama-Perusahaan" sm={5}>Nama Perusahaan</Label>
+            <Col sm={7}>
+              <Input type="text" name="text" id="Nama-Perusahaan" value="Nama Perusahaan" />
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label for="Nama-Komersial" sm={5}>Nama Komersial</Label>
+            <Col sm={7}>
+              <Input type="text" name="text" id="Nama-Komersial" value="Nama Komersial" />
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label for="Unit-Statistik" sm={5}>Unit Statistik</Label>
+            <Col sm={7}>
+              <Input type="text" name="text" id="Unit-Statistik" value="Unit Statistik" />
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label for="Nama Perusahaan" sm={5}>Kegiatan Utama</Label>
+            <Col sm={7}>
+              <Input type="text" name="text" id="Nama-Perusahaan" value="Kegiatan Utama" />
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label for="Nama Perusahaan" sm={5}>Kategori KBLI</Label>
+            <Col sm={7}>
+              <Input type="text" name="text" id="Nama-Perusahaan" value="Kategori KBLI" />
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label for="Nama Perusahaan" sm={5}>Produk Utama</Label>
+            <Col sm={7}>
+              <Input type="text" name="text" id="Nama-Perusahaan" value="Produk Utama" />
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label for="Nama-Komersial" sm={5}>Nama Komersial</Label>
+            <Col sm={7}>
+              <Input type="text" name="text" id="Nama-Komersial" value="Nama Komersial" />
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label for="Unit-Statistik" sm={5}>Unit Statistik</Label>
+            <Col sm={7}>
+              <Input type="text" name="text" id="Unit-Statistik" value="Unit Statistik" />
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label for="Nama Perusahaan" sm={5}>Kegiatan Utama</Label>
+            <Col sm={7}>
+              <Input type="text" name="text" id="Nama-Perusahaan" value="Kegiatan Utama" />
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label for="Nama Perusahaan" sm={5}>Kategori KBLI</Label>
+            <Col sm={7}>
+              <Input type="text" name="text" id="Nama-Perusahaan" value="Kategori KBLI" />
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label for="Nama Perusahaan" sm={5}>Produk Utama</Label>
+            <Col sm={7}>
+              <Input type="text" name="text" id="Nama-Perusahaan" value="Produk Utama" />
+            </Col>
+          </FormGroup>
+          <Row>
+            <Col xs="9">
+              <ButtonSave idSBR={this.state.idSBR} />
+            </Col>
+            <Col xs="3">
+              <ButtonAdd idSBR={this.state.idSBR} />
+            </Col>
+          </Row>
+        </Form>
+      </div>
+    );
+  }
 }
 
 export default Umum;
