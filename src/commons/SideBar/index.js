@@ -25,7 +25,6 @@ class SideBar extends React.PureComponent {
 
   render() {
     const { activeItem } = this.state
-
     return (
       <div className="box">
       <Grid>

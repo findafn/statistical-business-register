@@ -2,7 +2,7 @@ import React from 'react'
 import { Form, FormGroup, Label, Row, Col, Input } from 'reactstrap'
 
 import ButtonSave from '../../commons/ButtonSave';
-import ButtonAdd from '../../commons/ButtonAdd';
+import ButtonChange from '../../commons/ButtonChange';
 
 class Umum extends React.PureComponent {
   constructor(props) {
@@ -61,31 +61,31 @@ class Umum extends React.PureComponent {
             </Col>
           </FormGroup>
           <FormGroup row>
-            <Label for="Nama-Komersial" sm={5}>Nama Komersial</Label>
+            <Label for="Nama-Komersial" sm={5}>Kode KBLI</Label>
             <Col sm={7}>
               <Input type="text" name="text" id="Nama-Komersial" value="Nama Komersial" />
             </Col>
           </FormGroup>
           <FormGroup row>
-            <Label for="Unit-Statistik" sm={5}>Unit Statistik</Label>
+            <Label for="Unit-Statistik" sm={5}>Alamat</Label>
             <Col sm={7}>
               <Input type="text" name="text" id="Unit-Statistik" value="Unit Statistik" />
             </Col>
           </FormGroup>
           <FormGroup row>
-            <Label for="Nama Perusahaan" sm={5}>Kegiatan Utama</Label>
+            <Label for="Nama Perusahaan" sm={5}>Kabupaten/Kota</Label>
             <Col sm={7}>
               <Input type="text" name="text" id="Nama-Perusahaan" value="Kegiatan Utama" />
             </Col>
           </FormGroup>
           <FormGroup row>
-            <Label for="Nama Perusahaan" sm={5}>Kategori KBLI</Label>
+            <Label for="Nama Perusahaan" sm={5}>Provinsi</Label>
             <Col sm={7}>
               <Input type="text" name="text" id="Nama-Perusahaan" value="Kategori KBLI" />
             </Col>
           </FormGroup>
           <FormGroup row>
-            <Label for="Nama Perusahaan" sm={5}>Produk Utama</Label>
+            <Label for="Nama Perusahaan" sm={5}>Status</Label>
             <Col sm={7}>
               <Input type="text" name="text" id="Nama-Perusahaan" value="Produk Utama" />
             </Col>
@@ -95,7 +95,7 @@ class Umum extends React.PureComponent {
               <ButtonSave idSBR={this.state.idSBR} />
             </Col>
             <Col xs="3">
-              <ButtonAdd idSBR={this.state.idSBR} />
+              <ButtonChange idSBR={this.state.idSBR} />
             </Col>
           </Row>
         </Form>

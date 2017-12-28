@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom';
 
 import Login from './components/Login';
-import Detail from './components/Detail';
+import ChangeLog from './components/ChangeLog';
 import SideBar from './commons/SideBar';
 import Home from './components';
 
@@ -15,7 +15,8 @@ class App extends React.PureComponent {
       <BrowserRouter>
       <div>
         <Route exact path="" component={Home} />
-        <Route exact path="/login" component={Login} />
+        <Route exact path="/Login" component={Login} />
+        <Route exact path="/ChangeLog" component={ChangeLog} />
       </div>
       </BrowserRouter>
     );
