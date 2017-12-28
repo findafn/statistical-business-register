@@ -11,7 +11,7 @@ class ButtonSave extends React.PureComponent {
   }
   render() {
     return (
-        <Button color="info" onClick={this.handleClick} className="detail-btn">Simpan</Button>
+        <Button color="info" disabled onClick={this.handleClick} className="detail-btn">Simpan</Button>
     );   
   }
 
