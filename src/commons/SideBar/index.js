@@ -28,7 +28,7 @@ class SideBar extends React.PureComponent {
     return (
       <div className="box">
       <Grid>
-        <Grid.Column width={4}>
+        <Grid.Column width={3}>
           <Menu fluid vertical tabular>
             <Menu.Item name='Jelajahi-Data-SBR' active={activeItem === 'Jelajahi-Data-SBR'} onClick={() => { this.toggle('Jelajahi-Data-SBR'); }} />
             <Menu.Item name='Lihat-Detail-Perusahaan' active={activeItem === 'Lihat-Detail-Perusahaan'} onClick={() => { this.toggle('Lihat-Detail-Perusahaan'); }} />
@@ -38,7 +38,7 @@ class SideBar extends React.PureComponent {
           </Menu>
         </Grid.Column>
 
-        <Grid.Column stretched width={12}>
+        <Grid.Column stretched width={13}>
         <TabContent activeTab={activeItem}>
         <TabPane tabId="Jelajahi-Data-SBR">
           <Segment>
