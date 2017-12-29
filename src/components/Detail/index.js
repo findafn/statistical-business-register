@@ -21,13 +21,15 @@ class Detail extends React.PureComponent {
       activeItem: 'Umum',
       activeHistory: '1',
       idSBR: '',
+      idChange: '1',
     };
   }
 
   toggle(Item) {
     if (this.state.activeItem !== Item) {
       this.setState({
-        activeItem: Item
+        activeItem: Item,
+        idChange: 2,
       });
     }
   }
@@ -112,7 +114,7 @@ class Detail extends React.PureComponent {
             </Container>
           </TabPane>
           <TabPane tabId="2">
-            <ChangeLog />
+            <ChangeLog idChange={this.state.idChange}/>
             <br />
             <Button color="info" active={activeHistory === '1'} onClick={() => { this.toggleHistory('1'); }}>Kembali</Button>
           </TabPane>

@@ -67,3 +67,13 @@ body {
   position: relative;
   margin: 50px auto;
 }
+.fix-width {
+  width:10%;
+}
+table {
+  table-layout: fixed; 
+}
+
+table th, table td { 
+  overflow:hidden;
+}
