@@ -4,6 +4,9 @@ import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, Ca
 
 import Jelajah from '../../components/Jelajah';
 import Detail from '../../components/Detail';
+import View from '../../components/Snapshot/View';
+import Snapshot from '../../components/Snapshot';
+import CEEF from '../../components/CEEF';
 
 class SideBar extends React.PureComponent {
   constructor(props) {
@@ -34,7 +37,6 @@ class SideBar extends React.PureComponent {
             <Menu.Item name='Lihat-Detail-Perusahaan' active={activeItem === 'Lihat-Detail-Perusahaan'} onClick={() => { this.toggle('Lihat-Detail-Perusahaan'); }} />
             <Menu.Item name='Snapshot' active={activeItem === 'Snapshot'} onClick={() => { this.toggle('Snapshot'); }} />
             <Menu.Item name='CEEF' active={activeItem === 'CEEF'} onClick={() => { this.toggle('CEEF'); }} />
-            <Menu.Item name='CEEF' active={activeItem === 'CEEF2'} onClick={() => { this.toggle('CEEF2'); }} />
           </Menu>
         </Grid.Column>
 
@@ -52,17 +54,12 @@ class SideBar extends React.PureComponent {
         </TabPane>
         <TabPane tabId="Snapshot">
           <Segment>
-            <p>Snapshot</p>
+            <Snapshot />
           </Segment>
         </TabPane>
         <TabPane tabId="CEEF">
           <Segment>
-            <p>CEEF</p>
-          </Segment>
-        </TabPane>
-        <TabPane tabId="CEEF2">
-          <Segment>
-            <p>CEEF</p>
+            <CEEF />
           </Segment>
         </TabPane>
         </TabContent>

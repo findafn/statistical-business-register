@@ -9,6 +9,8 @@ import InputSearch from '../../commons/InputSearch';
 import ButtonSearch from '../../commons/ButtonSearch';
 import ButtonHistory from '../../commons/ButtonHistory';
 import ChangeLog from '../ChangeLog';
+import TabelUmum from './TabelUmum';
+import TabelIndikator from './TabelIndikator';
 
 
 class Detail extends React.PureComponent {
@@ -16,6 +18,8 @@ class Detail extends React.PureComponent {
     super(props);
     this.toggle = this.toggle.bind(this);
     this.toggleHistory = this.toggleHistory.bind(this);
+    this.toggleHistory2 = this.toggleHistory2.bind(this);
+    this.toggleHistory3 = this.toggleHistory3.bind(this);
     this.onChangeSearch = this.onChangeSearch.bind(this);
     this.state = {
       activeItem: 'Umum',
@@ -37,7 +41,23 @@ class Detail extends React.PureComponent {
   toggleHistory(History) {
     if (this.state.activeHistory !== History) {
       this.setState({
-        activeHistory: History
+        activeHistory: '1'
+      });
+    }
+  }
+
+  toggleHistory2(History) {
+    if (this.state.activeHistory !== History) {
+      this.setState({
+        activeHistory: '2'
+      });
+    }
+  }
+
+  toggleHistory3(History) {
+    if (this.state.activeHistory !== History) {
+      this.setState({
+        activeHistory: '3'
       });
     }
   }
@@ -79,25 +99,19 @@ class Detail extends React.PureComponent {
                     <p>Daftar Perubahan</p>
                     <Row>
                       <Col>
-                        <div>
-                          <Table>
-                            <thead>
-                              <tr>
-                                <th>Tanggal Perubahan</th>
-                                <th>Asal Perubahan</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                              </tr>
-                            </tbody>
-                          </Table>
-                        </div>
+                        <TabContent activeTab={activeItem}>
+                          <TabPane tabId="Umum">
+                            <TabelUmum /><br />
+                            <Button color="info" active={activeHistory === '2'} onClick={() => { this.toggleHistory2('2'); }}>Lihat Detail History Perubahan</Button>
+                          </TabPane>
+                          <TabPane tabId="Indikator">
+                            <TabelIndikator /><br /> 
+                            <Button color="info" active={activeHistory === '3'} onClick={() => { this.toggleHistory3('3'); }}>Lihat Detail History Perubahan</Button>
+                          </TabPane>
+                        </TabContent>
                       </Col>
                     </Row>
-                    <Button color="info" active={activeHistory === '2'} onClick={() => { this.toggleHistory('2'); }}>Lihat Detail History Perubahan</Button>
+                   
                   </div>
                 </Col>
                 <Col xs="6">
@@ -114,7 +128,12 @@ class Detail extends React.PureComponent {
             </Container>
           </TabPane>
           <TabPane tabId="2">
-            <ChangeLog idChange={this.state.idChange}/>
+            <ChangeLog idChange={this.state.idChange} />
+            <br />
+            <Button color="info" active={activeHistory === '1'} onClick={() => { this.toggleHistory('1'); }}>Kembali</Button>
+          </TabPane>
+          <TabPane tabId="3">
+            <ChangeLog idChange={this.state.idChange} />
             <br />
             <Button color="info" active={activeHistory === '1'} onClick={() => { this.toggleHistory('1'); }}>Kembali</Button>
           </TabPane>

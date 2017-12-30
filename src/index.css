@@ -77,3 +77,19 @@ table {
 table th, table td { 
   overflow:hidden;
 }
+
+.dialog-box-big {
+  width: 700px;
+  padding:10px;
+  margin: 20px auto;
+  border: 1px solid black;
+}
+
+.dialog-box-small {
+  width: 100px;
+  padding:10px;
+  margin: 20px auto;
+  border: 1px solid black;
+}
+
+
