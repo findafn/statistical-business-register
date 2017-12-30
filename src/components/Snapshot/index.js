@@ -108,18 +108,8 @@ class Snapshot extends React.Component {
                     </Modal> */}
                   </div>
                 )
-              },
-              {
-                accessor: "export",
-                maxWidth: 50,
-                Cell: row => (
-                  <div>
-                   {/* <Link to="http://github.com" target="_blank" onClick={(event) => {event.preventDefault();
-                   (this.makeHref("http://github.com"));}}> <Button color="success" onClick={this.toggleModal}>v</Button></Link> */}
-                   <a href="http://github.com" target="_blank" > <Button color="success" onClick={this.toggleModal}>v</Button></a>
-                  </div>
-                )
               }
+             
             ]}
             defaultPageSize={10}
             className="-striped -highlight"
