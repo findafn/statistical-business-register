@@ -11,7 +11,7 @@ class ButtonChange extends React.PureComponent {
   }
   render() {
     return (
-        <Button color="info" onClick={this.handleClick} className="detail-btn">Tambah</Button>
+        <Button color="info" onClick={this.handleClick} className="detail-btn">Ubah</Button>
     );   
   }
 
