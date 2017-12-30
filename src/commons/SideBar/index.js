@@ -4,7 +4,6 @@ import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, Ca
 
 import Jelajah from '../../components/Jelajah';
 import Detail from '../../components/Detail';
-import View from '../../components/Snapshot/View';
 import Snapshot from '../../components/Snapshot';
 import CEEF from '../../components/CEEF';
 

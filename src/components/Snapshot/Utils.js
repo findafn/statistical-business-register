@@ -13,10 +13,7 @@ const newPerson = () => {
   return {
     tanggalPembuatan: Math.floor(Math.random() * 30),
     updateTerakhir: Math.floor(Math.random() * 100),
-    namaPerusahaan:
-      statusChance > 0.66
-        ? "relationship"
-        : statusChance > 0.33 ? "complicated" : "single"
+    
   };
 };
 

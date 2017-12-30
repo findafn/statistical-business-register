@@ -6,7 +6,6 @@ import {
 
 import Login from './components/Login';
 import ChangeLog from './components/ChangeLog';
-import BuatCEEF from './components/CEEF/BuatCEEF';
 import SideBar from './commons/SideBar';
 import Home from './components';
 
@@ -20,7 +19,7 @@ class App extends React.PureComponent {
         <Route exact path="/ChangeLog" component={ChangeLog} />
       </div>
       </BrowserRouter>
-     
+   
     );
   }
 }
