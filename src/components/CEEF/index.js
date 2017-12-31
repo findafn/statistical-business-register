@@ -14,26 +14,17 @@ class CEEF extends React.Component {
     this.state = {
       data: makeData(),
       isOpen: false,
-      modal: false,
       namaCEEF: '',
       idCEEF: '0',
       idSBR: '0',
       unitStatistik: '',
       kodeKBLI: 'A',
     };
-    this.toggleModal = this.toggleModal.bind(this);
     this.onChangeNama = this.onChangeNama.bind(this);
     this.handleOptStatistik = this.handleOptStatistik.bind(this);
     this.handleOptKode = this.handleOptKode.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
-  toggleModal() {
-    this.setState({
-      modal: !this.state.modal
-    });
-  }
-
 
   onChangeNama(e) {
     this.setState({
