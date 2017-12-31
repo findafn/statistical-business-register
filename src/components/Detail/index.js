@@ -93,35 +93,35 @@ class Detail extends React.PureComponent {
   }
 
   handleClickSearch() {
-    const urlEstablishment = config.liveSBRUrl + '/establishment/' + this.state.idSBR;
-    axios.get(urlEstablishment)
-      .then(({ data }) => {
-        if (data.success) {
-          this.setState(p => ({
-            ...p,
-            dataUmum: data.result,
-          }));
-        } else {
-          alert(data.message);
-        }
-        console.log('data ', data.result.idSBR);
-      })
-      .catch(err => {
-        console.log("Tidak bisa mendapatkan data establishment");
-      });
-    const urlIndicator = config.liveSBRUrl + '/indicator/' + this.state.idSBR;
-    axios.get(urlIndicator)
-      .then(({ data }) => {
-        if (data.success) {
-          this.setState(p => ({
-            ...p,
-            dataIdk:data.result,
-          }));
-        }
-      })
-      .catch(err => {
-        alert("Tidak bisa mendapatkan data indicator");
-      });
+    // const urlEstablishment = config.liveSBRUrl + '/establishment/' + this.state.idSBR;
+    // axios.get(urlEstablishment)
+    //   .then(({ data }) => {
+    //     if (data.success) {
+    //       this.setState(p => ({
+    //         ...p,
+    //         dataUmum: data.result,
+    //       }));
+    //     } else {
+    //       alert(data.message);
+    //     }
+    //     console.log('data ', data.result.idSBR);
+    //   })
+    //   .catch(err => {
+    //     console.log("Tidak bisa mendapatkan data establishment");
+    //   });
+    // const urlIndicator = config.liveSBRUrl + '/indicator/' + this.state.idSBR;
+    // axios.get(urlIndicator)
+    //   .then(({ data }) => {
+    //     if (data.success) {
+    //       this.setState(p => ({
+    //         ...p,
+    //         dataIdk:data.result,
+    //       }));
+    //     }
+    //   })
+    //   .catch(err => {
+    //     alert("Tidak bisa mendapatkan data indicator");
+    //   });
   }
 
   render() {
