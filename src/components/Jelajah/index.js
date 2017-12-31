@@ -2,15 +2,37 @@ import React from 'react'
 import ReactTable from 'react-table';
 import { Button, Nav, NavItem, NavLink, } from 'reactstrap';
 
-import { makeData, Logo, Tips } from "./Utils";
+import axios from 'axios';
+
+import config from '../../config';
 
 class Jelajah extends React.Component {
   constructor() {
     super();
     this.state = {
-      data: makeData()
+      data: [],
     };
   }
+  componentDidMount() {
+    const urlEstablishment = config.liveSBRUrl + '/establishment';
+    axios.get(urlEstablishment)
+      .then(({ data }) => {
+        if (data.success) {
+          this.setState(p => ({
+            ...p,
+            data:data.result,
+          }));
+        } else {
+          alert(data.message);
+        }
+        console.log('data ', {data});
+      })
+      .catch(err => {
+        console.log("Tidak bisa mendapatkan data establishment");
+      });
+      
+  }
+
   render() {
     const { data } = this.state;
     return (
@@ -39,23 +61,23 @@ class Jelajah extends React.Component {
               },
               {
                 Header: "Kabupaten/Kota",
-                accessor: "kota"
+                accessor: "kodeKabKot"
               },
               {
                 Header: "Provinsi",
-                accessor: "provinsi"
+                accessor: "kodeProv"
               },
               {
                 Header: "Tanggal Entri Data",
-                accessor: "entriData"
+                accessor: "tanggalEntryPertama"
               },
               {
                 Header: "Tanggal Update Terakhir",
-                accessor: "updateTerakhir"
+                accessor: "pembaruanTerakhir"
               },
               {
                 Header: "Pengupdate Terakhir",
-                accessor: "lastUpdater"
+                accessor: "updaterTerakhir"
               },
             ]}
             defaultPageSize={10}

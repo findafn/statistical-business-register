@@ -13,12 +13,12 @@ class Umum extends React.PureComponent {
       namaKomersial: '',
       unitStatistik: '',
       kegiatanUtama: '',
-      kategoriKBLI: '',
+      katKBLI: '',
       produkUtama: '',
       kodeKBLI: '',
       alamat: '',
-      kota: '',
-      provinsi: '',
+      kodeKotKab: '',
+      kodeProv: '',
       status: '',
     };
     this.onChangeSearch = this.onChangeSearch.bind(this);
@@ -72,7 +72,7 @@ class Umum extends React.PureComponent {
   onChangeKategori(e) {
     this.setState(p => ({
       ...p,
-      kategoriKBLI: e.target.value,
+      katKBLI: e.target.value,
     }));
     e.persist();
   }
@@ -100,14 +100,14 @@ class Umum extends React.PureComponent {
   onChangeKota(e) {
     this.setState(p => ({
       ...p,
-      kota: e.target.value,
+      kodeKotKab: e.target.value,
     }));
     e.persist();
   }
   onChangeProvinsi(e) {
     this.setState(p => ({
       ...p,
-      provinsi: e.target.value,
+      kodeProv: e.target.value,
     }));
     e.persist();
   }
@@ -130,75 +130,75 @@ class Umum extends React.PureComponent {
           <FormGroup row>
             <Label for="Nama-Perusahaan" sm={5}>Nama Perusahaan</Label>
             <Col sm={7}>
-              <Input type="text" name="text" id="Nama-Perusahaan" value={this.state.namaPerusahaan} onChange={this.onChangePerusahaan} />
+              <Input type="text" name="text" id="Nama-Perusahaan" value={this.props.data.namaPerusahaan} onChange={this.onChangePerusahaan} />
             </Col>
           </FormGroup>
           <FormGroup row>
             <Label for="Nama-Komersial" sm={5}>Nama Komersial</Label>
             <Col sm={7}>
-              <Input type="text" name="text" id="Nama-Komersial" value={this.state.namaKomersial} onChange={this.onChangeKomersial} />
+              <Input type="text" name="text" id="Nama-Komersial" value={this.props.data.namaKomersial} onChange={this.onChangeKomersial} />
             </Col>
           </FormGroup>
           <FormGroup row>
             <Label for="Unit-Statistik" sm={5}>Unit Statistik</Label>
             <Col sm={7}>
-              <Input type="text" name="text" id="Unit-Statistik" value={this.state.unitStatistik} onChange={this.onChangeStatistik} />
+              <Input type="text" name="text" id="Unit-Statistik" value={this.props.data.unitStatistik} onChange={this.onChangeStatistik} />
             </Col>
           </FormGroup>
           <FormGroup row>
             <Label for="Nama Perusahaan" sm={5}>Kegiatan Utama</Label>
             <Col sm={7}>
-              <Input type="text" name="text" id="Nama-Perusahaan" vvalue={this.state.kegiatanUtama} onChange={this.onChangeKegiatan} />
+              <Input type="text" name="text" id="Nama-Perusahaan" vvalue={this.props.data.kegiatanUtama} onChange={this.onChangeKegiatan} />
             </Col>
           </FormGroup>
           <FormGroup row>
             <Label for="Nama Perusahaan" sm={5}>Kategori KBLI</Label>
             <Col sm={7}>
-              <Input type="text" name="text" id="Nama-Perusahaan" value={this.state.kategoriKBLI} onChange={this.onChangeKategori} />
+              <Input type="text" name="text" id="Nama-Perusahaan" value={this.props.data.katKBLI} onChange={this.onChangeKategori} />
             </Col>
           </FormGroup>
           <FormGroup row>
             <Label for="Nama Perusahaan" sm={5}>Produk Utama</Label>
             <Col sm={7}>
-              <Input type="text" name="text" id="Nama-Perusahaan" value={this.state.produkUtama} onChange={this.onChangeProduk} />
+              <Input type="text" name="text" id="Nama-Perusahaan" value={this.props.data.produkUtama} onChange={this.onChangeProduk} />
             </Col>
           </FormGroup>
           <FormGroup row>
             <Label for="Nama-Komersial" sm={5}>Kode KBLI</Label>
             <Col sm={7}>
-              <Input type="text" name="text" id="Nama-Komersial" value={this.state.kodeKBLI} onChange={this.onChangeKode} />
+              <Input type="text" name="text" id="Nama-Komersial" value={this.props.data.kodeKBLI} onChange={this.onChangeKode} />
             </Col>
           </FormGroup>
           <FormGroup row>
             <Label for="Unit-Statistik" sm={5}>Alamat</Label>
             <Col sm={7}>
-              <Input type="text" name="text" id="Unit-Statistik" value={this.state.alamat} onChange={this.onChangeAlamat} />
+              <Input type="text" name="text" id="Unit-Statistik" value={this.props.data.alamat} onChange={this.onChangeAlamat} />
             </Col>
           </FormGroup>
           <FormGroup row>
             <Label for="Nama Perusahaan" sm={5}>Kabupaten/Kota</Label>
             <Col sm={7}>
-              <Input type="text" name="text" id="Nama-Perusahaan" value={this.state.kota} onChange={this.onChangeKota} />
+              <Input type="text" name="text" id="Nama-Perusahaan" value={this.props.data.kodeKotKab} onChange={this.onChangeKota} />
             </Col>
           </FormGroup>
           <FormGroup row>
             <Label for="Nama Perusahaan" sm={5}>Provinsi</Label>
             <Col sm={7}>
-              <Input type="text" name="text" id="Nama-Perusahaan" value={this.state.provinsi} onChange={this.onChangeProvinsi} />
+              <Input type="text" name="text" id="Nama-Perusahaan" value={this.props.data.kodeProv} onChange={this.onChangeProvinsi} />
             </Col>
           </FormGroup>
           <FormGroup row>
             <Label for="Nama Perusahaan" sm={5}>Status</Label>
             <Col sm={7}>
-              <Input type="text" name="text" id="Nama-Perusahaan" value={this.state.status} onChange={this.onChangestatus} />
+              <Input type="text" name="text" id="Nama-Perusahaan" value={this.props.data.status} onChange={this.onChangestatus} />
             </Col>
           </FormGroup>
           <Row>
             <Col xs="9">
-              <ButtonSave idSBR={this.state.idSBR} />
+              <ButtonSave idSBR={this.props.data.idSBR} />
             </Col>
             <Col xs="3">
-              <ButtonChange idSBR={this.state.idSBR} />
+              <ButtonChange idSBR={this.props.data.idSBR} />
             </Col>
           </Row>
         </Form>

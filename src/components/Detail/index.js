@@ -2,7 +2,10 @@ import React from 'react'
 import { Container, Row, Col } from 'reactstrap';
 import { Input, Button } from 'reactstrap';
 import { TabContent, TabPane, Table, Nav, NavItem, NavLink } from 'reactstrap';
+import axios from 'axios';
+import ReactTable from 'react-table';
 
+import config from '../../config';
 import Indikator from './Indikator';
 import Umum from './Umum';
 import InputSearch from '../../commons/InputSearch';
@@ -21,12 +24,30 @@ class Detail extends React.PureComponent {
     this.toggleHistory2 = this.toggleHistory2.bind(this);
     this.toggleHistory3 = this.toggleHistory3.bind(this);
     this.onChangeSearch = this.onChangeSearch.bind(this);
+    this.handleClickSearch = this.handleClickSearch.bind(this);
     this.state = {
       activeItem: 'Umum',
       activeHistory: '1',
-      idSBR: '',
       idChange: '1',
-    };
+      idSBR: '',
+      // namaPerusahaan: '',
+      // namaKomersial: '',
+      // kegiatanUtama: '',
+      // kategoriKBLI: '',
+      // produkUtama: '',
+      // kodeKBLI: '',
+      // alamat: '',
+      // kodeKabKot: '',
+      // kodeProv: '',
+      // nilaiProduksi: '',
+      // nilaiUpah: '',
+      // totalNaker: '',
+      // nilaiPengeluaran: '',
+      // unitStatistik: '',
+      // status: '',
+      dataUmum: [],
+      dataIdk: [],
+      };
   }
 
   toggle(Item) {
@@ -49,7 +70,7 @@ class Detail extends React.PureComponent {
     if (this.state.activeHistory !== History) {
       this.setState({
         activeHistory: '2',
-        idChange:'2',
+        idChange: '2',
       });
     }
   }
@@ -58,7 +79,7 @@ class Detail extends React.PureComponent {
     if (this.state.activeHistory !== History) {
       this.setState({
         activeHistory: '3',
-        idChange:'3',
+        idChange: '3',
       });
     }
   }
@@ -68,10 +89,43 @@ class Detail extends React.PureComponent {
       ...p,
       idSBR,
     }));
+    console.log(idSBR);
+  }
+
+  handleClickSearch() {
+    const urlEstablishment = config.liveSBRUrl + '/establishment/' + this.state.idSBR;
+    axios.get(urlEstablishment)
+      .then(({ data }) => {
+        if (data.success) {
+          this.setState(p => ({
+            ...p,
+            dataUmum: data.result,
+          }));
+        } else {
+          alert(data.message);
+        }
+        console.log('data ', data.result.idSBR);
+      })
+      .catch(err => {
+        console.log("Tidak bisa mendapatkan data establishment");
+      });
+    const urlIndicator = config.liveSBRUrl + '/indicator/' + this.state.idSBR;
+    axios.get(urlIndicator)
+      .then(({ data }) => {
+        if (data.success) {
+          this.setState(p => ({
+            ...p,
+            dataIdk:data.result,
+          }));
+        }
+      })
+      .catch(err => {
+        alert("Tidak bisa mendapatkan data indicator");
+      });
   }
 
   render() {
-    const { activeItem, activeHistory } = this.state
+    const { activeItem, activeHistory, dataUmum, dataIdk } = this.state
     return (
       <div >
         <TabContent activeTab={activeHistory}>
@@ -83,7 +137,7 @@ class Detail extends React.PureComponent {
                   <InputSearch idSBR={this.state.idSBR} onChangeSearch={this.onChangeSearch} />
                 </Col>
                 <Col xs="4">
-                  <ButtonSearch idSBR={this.state.idSBR} />
+                  <ButtonSearch idSBR={this.state.idSBR} onClickSearch={this.handleClickSearch} />
                 </Col>
               </Row>
               <Row>
@@ -102,26 +156,54 @@ class Detail extends React.PureComponent {
                       <Col>
                         <TabContent activeTab={activeItem}>
                           <TabPane tabId="Umum">
-                            <TabelUmum /><br />
+                            <ReactTable
+                              data={dataUmum}
+                              columns={[
+                                {
+                                  Header: "Tanggal Perubahan",
+                                  accessor: "pembaruanTerakhir"
+                                },
+                                {
+                                  Header: "Asal Perubahan",
+                                  accessor: "updaterTerakhir"
+                                },
+                              ]}
+                              defaultPageSize={10}
+                              className="-striped -highlight"
+                            />
                             <Button color="info" active={activeHistory === '2'} onClick={() => { this.toggleHistory2('2'); }}>Lihat Detail History Perubahan</Button>
                           </TabPane>
                           <TabPane tabId="Indikator">
-                            <TabelIndikator /><br /> 
+                            <ReactTable
+                              data={dataIdk}
+                              columns={[
+                                {
+                                  Header: "Tanggal Perubahan",
+                                  accessor: "pembaruanTerakhir"
+                                },
+                                {
+                                  Header: "Asal Perubahan",
+                                  accessor: "updaterTerakhir"
+                                },
+                              ]}
+                              defaultPageSize={10}
+                              className="-striped -highlight"
+                            />
                             <Button color="info" active={activeHistory === '3'} onClick={() => { this.toggleHistory3('3'); }}>Lihat Detail History Perubahan</Button>
                           </TabPane>
                         </TabContent>
                       </Col>
                     </Row>
-                   
+
                   </div>
                 </Col>
                 <Col xs="6">
                   <TabContent activeTab={activeItem}>
                     <TabPane tabId="Umum">
-                      <Umum />
+                      <Umum data={this.state.dataUmum}/>
                     </TabPane>
                     <TabPane tabId="Indikator">
-                      <Indikator />
+                      <Indikator data={this.state.dataIdk} />
                     </TabPane>
                   </TabContent>
                 </Col>
