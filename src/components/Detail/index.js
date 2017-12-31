@@ -33,7 +33,6 @@ class Detail extends React.PureComponent {
     if (this.state.activeItem !== Item) {
       this.setState({
         activeItem: Item,
-        idChange: 2,
       });
     }
   }
@@ -41,7 +40,7 @@ class Detail extends React.PureComponent {
   toggleHistory(History) {
     if (this.state.activeHistory !== History) {
       this.setState({
-        activeHistory: '1'
+        activeHistory: '1',
       });
     }
   }
@@ -49,7 +48,8 @@ class Detail extends React.PureComponent {
   toggleHistory2(History) {
     if (this.state.activeHistory !== History) {
       this.setState({
-        activeHistory: '2'
+        activeHistory: '2',
+        idChange:'2',
       });
     }
   }
@@ -57,7 +57,8 @@ class Detail extends React.PureComponent {
   toggleHistory3(History) {
     if (this.state.activeHistory !== History) {
       this.setState({
-        activeHistory: '3'
+        activeHistory: '3',
+        idChange:'3',
       });
     }
   }
