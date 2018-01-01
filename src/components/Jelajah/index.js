@@ -30,7 +30,22 @@ class Jelajah extends React.Component {
       .catch(err => {
         console.log("Tidak bisa mendapatkan data establishment");
       });
-      
+  }
+  updateDataFromADAU(){
+    const urlUpdateADAU = config.liveSBRUrl + '/establishment/update';
+    axios.post(urlUpdateADAU)
+      .then(({ data }) => {
+        if (data.success) {
+          alert(data.message);
+        } else {
+          alert(data.message);
+        }
+        window.location = "/";
+      })
+      .catch((err) => {
+        alert(err);
+        window.location = "/";
+      });
   }
 
   render() {
@@ -39,10 +54,10 @@ class Jelajah extends React.Component {
       <div>
         <Nav>
           <NavItem>
-            <NavLink href="../SideBar"><Button color="info">Sinkronkan dari Data ADAU</Button></NavLink>
+            <Button color="info" onClick={this.updateDataFromADAU}>Sinkronkan dari Data ADAU</Button>
           </NavItem>
         </Nav>
-        <div className="loc-center">Jumlah Total Perusahaan :</div>
+        <div className="loc-center">Jumlah Total Perusahaan : {this.state.data.length}</div>
         <div>
           <ReactTable
             data={data}
@@ -90,49 +105,3 @@ class Jelajah extends React.Component {
 }
 
 export default Jelajah;
-
-
-// import React from 'react'
-// import { Button, Table } from 'reactstrap';
-// import { TabContent, TabPane, Nav, NavItem, NavLink, } from 'reactstrap';
-
-// class Jelajah extends React.PureComponent {
-//   render() {
-//     return (
-//       <div className="inner-box">
-//         <Nav>
-//           <NavItem>
-//             <NavLink href="../SideBar"><Button color="info">Sinkronkan dari Data ADAU</Button></NavLink>
-//           </NavItem>
-//         </Nav>
-//         <div className="loc-center">Jumlah Total Perusahaan :</div>
-//         <div>
-//           <Table>
-//             <thead>
-//               <tr>
-//                 <th>Nama Perusahaan</th>
-//                 <th>Nama Komersial</th>
-//                 <th>Alamat</th>
-//                 <th>Kabupaten/Kota</th>
-//                 <th>Provinsi</th>
-//                 <th>Tanggal Entri Data</th>
-//                 <th>Tanggal Update Terakhir</th>
-//                 <th>Peng-update Terakhir</th>
-//               </tr>
-//             </thead>
-//             <tbody>
-//               {/* <tr>
-//                 <th scope="row">1</th>
-//                 <td>Mark</td>
-//                 <td>Otto</td>
-//                 <td>@mdo</td>
-//               </tr> */}
-//             </tbody>
-//           </Table>
-//         </div>
-//       </div>
-//     );
-//   }
-// }
-
-// export default Jelajah;
