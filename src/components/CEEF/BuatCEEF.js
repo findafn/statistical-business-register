@@ -3,24 +3,56 @@ import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Container, Row, Col, NavItem, NavLink, Input, FormGroup, Label } from 'reactstrap';
 import {Checkbox, CheckboxGroup} from 'react-checkbox-group';
+import axios from 'axios';
+import config from '../../config';
 
 class BuatCEEF extends React.Component {
   constructor() {
     super();
     this.state = {
       modal: false,
-      namaCEEF: '',
-      idCEEF: '0',
-      unitStatistik: [],
-      kodeKBLI: [],
+      nama: '',
+      nomorSnapshot: '-',
+      creator: '',
+      deskripsi: '',
+      unitStatistiks: [],
+      katKBLIs: [],
+      snapshot: [],
+      tanggal: Date.now()
     };
+    this.toggleOK = this.toggleOK.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.onChangeNama = this.onChangeNama.bind(this);
+    this.onChangeCreator = this.onChangeCreator.bind(this);
+    this.onChangeDeskripsi = this.onChangeDeskripsi.bind(this);
     this.handleOptStatistik = this.handleOptStatistik.bind(this);
     this.handleOptKode = this.handleOptKode.bind(this);
-   
+    this.handleChangeSnapshot = this.handleChangeSnapshot.bind(this);
   }
 
+  toggleOK() {
+    const { nama, tanggal, deskripsi, creator, nomorSnapshot, katKBLIs, unitStatistiks } = this.state;
+    const data = { nama, tanggal, deskripsi, creator, nomorSnapshot, katKBLIs, unitStatistiks };
+    const urlCreateCEEF = config.liveSBRUrl + '/ceef';
+    console.log(data);
+    axios.post(urlCreateCEEF, data)
+    .then(({data}) => {
+      if (data.success) {
+        alert(data.message);
+      } else {
+        alert(data.message);
+      }
+      this.setState({
+        modal: !this.state.modal
+      });
+    })
+    .catch((err) => {
+      alert('Terjadi error');
+      this.setState({
+        modal: !this.state.modal
+      });
+    });
+  }
   toggleModal() {
     this.setState({
       modal: !this.state.modal
@@ -28,24 +60,69 @@ class BuatCEEF extends React.Component {
   }
   onChangeNama(e) {
     this.setState({
-      namaCEEF: e.value.target,
+      nama: e.target.value,
+    });
+    e.persist();
+  }
+  onChangeCreator(e) {
+    this.setState({
+      creator: e.target.value,
+    });
+    e.persist();
+  }
+  onChangeDeskripsi(e) {
+    this.setState({
+      deskripsi: e.target.value,
     });
     e.persist();
   }
   handleOptStatistik(e) {
     this.setState(p => ({
-      unitStatistik: e,
+      unitStatistiks: e,
     }));
-    console.log('You have selected:', this.state.unitStatistik);
+    console.log('You have selected:', this.state.unitStatistiks);
   }
   handleOptKode(e) {
     this.setState({
-      kodeKBLI: e,
+      katKBLIs: e,
     });
-    console.log('You have selected:', this.state.kodeKBLI);
+    console.log('You have selected:', this.state.katKBLIs);
   }
 
+  handleChangeSnapshot(e){
+    this.setState(p => ({
+      ...p,
+      nomorSnapshot : e.target.value,
+    }));
+    e.persist();
+  }
+
+  componentDidMount() {
+    const urlEstablishment = config.liveSBRUrl + '/snapshot';
+    axios.get(urlEstablishment)
+    .then(({ data }) => {
+      if (data.success) {
+        this.setState(p => ({
+          ...p,
+          snapshot : data.result,
+          nomorSnapshot : data.result[0].nomorSnapshot,
+        }));
+      } else {
+        return;
+      }
+    })
+    .catch((err) => {
+      return;
+    });
+  }
   render() {
+    let views = <option>-</option>;
+    const {snapshot} = this.state;
+    if (snapshot && snapshot.length > 0) {
+      views = snapshot.map(s => (
+        <option value={s.nomorSnapshot}>{s.nomorSnapshot}</option>
+      ))
+    }
     return (
       <div>
         <Button color="info" onClick={this.toggleModal}>Buat CEEF</Button>
@@ -57,15 +134,18 @@ class BuatCEEF extends React.Component {
                 <Col sm={6}>
                   <FormGroup>
                     <Label>Masukkan nama CEEF</Label>
-                    <Input placeholder="Nama CEEF" value={this.state.namaCeef} onChange={this.onChangeNama} />
+                    <Input placeholder="Nama CEEF" value={this.state.nama} onChange={this.onChangeNama} />
                   </FormGroup>
-                  <p>Tanggal CEEF: </p>
-                  <p>Creator: {this.props.idSBR}</p><hr />
+                  <FormGroup>
+                    <Label>Masukkan nama creator</Label>
+                    <Input placeholder="Creator" value={this.state.creator} onChange={this.onChangeCreator} />
+                  </FormGroup>
+                  <p>Tanggal CEEF: {(new Date(this.state.tanggal)).toString()}</p><br/>
                 </Col>
                 <Col sm={6}>
                   <FormGroup >
                     <Label>Deskripsi CEEF (Tujuan penggunaan, periode, dan informasi lainnya</Label>
-                    <Input style={{ height: 80 }} type="textarea" placeholder="Deskripsi CEEF" />
+                    <Input style={{ height: 80 }} type="textarea" placeholder="Deskripsi CEEF" onChange={this.onChangeDeskripsi} value={this.state.deskripsi}/>
                   </FormGroup>
                 </Col>
               </Row>
@@ -73,24 +153,21 @@ class BuatCEEF extends React.Component {
                 <Col sm={6}>
                   <FormGroup>
                     <Label for="exampleSelect">Pilih Snapshot</Label>
-                    <Input type="select" name="select">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
+                    <Input type="select" name="select" value={this.state.nomorSnapshot} onChange={this.handleChangeSnapshot}>
+                      {views}
                     </Input>
                   </FormGroup>
                   <p>Pilih unit statistik (bisa >1):</p>
                   <CheckboxGroup
-                    name="unitStatistik"
-                    value={this.state.unitStatistik}
+                    name="unitStatistiks"
+                    value={this.state.unitStatistiks}
                     onChange={this.handleOptStatistik}>
 
-                    <label><Checkbox value="1" /> Enterprise Group</label>
-                    <label><Checkbox value="2" /> Unit Penunjang</label><br />
-                    <label><Checkbox value="3" /> Enterprise</label><br />
-                    <label><Checkbox value="4" /> Establishment</label>
+                    <label><Checkbox value="1" /> Enterprise Group</label><br />
+                    <label><Checkbox value="2" /> Enterprise</label><br />
+                    <label><Checkbox value="3" /> Establishment</label><br />
+                    <label><Checkbox value="4" /> Unit Penunjang</label>
+                    
                   </CheckboxGroup>
                 </Col>
               </Row>
@@ -98,8 +175,8 @@ class BuatCEEF extends React.Component {
                 <Col>
                   <p>Pilih kategori KBLI (bisa >1):</p>
                   <CheckboxGroup
-                    name="kodeKBLI"
-                    value={this.state.kodeKBLI}
+                    name="katKBLIs"
+                    value={this.state.katKBLIs}
                     onChange={this.handleOptKode}>
 
                     <label><Checkbox value="B" /> B</label>{' '}
@@ -128,7 +205,7 @@ class BuatCEEF extends React.Component {
             </Container>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.toggleModal}>OK</Button>{' '}
+            <Button color="primary" onClick={this.toggleOK}>OK</Button>{' '}
             <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
           </ModalFooter>
         </Modal>
