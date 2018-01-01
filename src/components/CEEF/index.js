@@ -3,7 +3,9 @@ import ReactTable from 'react-table';
 import { Button, Nav, NavItem, NavLink, } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Container, Row, Col, Input, FormGroup, Label } from 'reactstrap';
+import axios from 'axios';
 
+import config from '../../config';
 import { makeData, Logo, Tips } from "./Utils";
 import HapusCEEF from './HapusCEEF';
 
@@ -12,7 +14,7 @@ class CEEF extends React.Component {
   constructor() {
     super();
     this.state = {
-      data: makeData(),
+      data: [],
       isOpen: false,
       namaCEEF: '',
       idCEEF: '0',
@@ -51,7 +53,25 @@ class CEEF extends React.Component {
     e.preventDefault();
     console.log('state: ', this.state);
   }
-
+  
+  componentDidMount() {
+    const urlEstablishment = config.liveSBRUrl + '/ceef';
+    axios.get(urlEstablishment)
+      .then(({ data }) => {
+        if (data.success) {
+          this.setState(p => ({
+            ...p,
+            data : data.result,
+          }));
+        } else {
+          alert(data.message);
+        }
+        console.log('data ', {data});
+      })
+      .catch(err => {
+        console.log("Tidak bisa mendapatkan data establishment");
+      });
+  }
 
   render() {
     const { data } = this.state;
@@ -262,22 +282,26 @@ class CEEF extends React.Component {
             </Modal> */}
           </div>
         </div>
-        <div className="loc-center">Jumlah Total Perusahaan :</div>
+        <div className="loc-center">Jumlah Total CEEF : {this.state.data.length}</div>
         <div>
           <ReactTable
             data={data}
             columns={[
               {
+                Header: "Nomor CEEF",
+                accessor: "nomorCEEF"
+              },
+              {
                 Header: "Nama CEEF",
-                accessor: "namaCEEF"
+                accessor: "nama"
               },
               {
                 Header: "Tanggal Pembuatan",
-                accessor: "tanggalPembuatan"
+                accessor: "tanggal"
               },
               {
                 Header: "Jumlah Establishment (sesuai kriteria)",
-                accessor: "jumlahEst"
+                accessor: "jumlah"
               },
               {
                 Header: "Deskripsi",
