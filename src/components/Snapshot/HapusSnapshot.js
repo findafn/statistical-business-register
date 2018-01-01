@@ -29,7 +29,7 @@ class HapusSnapshot extends React.Component {
            Menghapus Snapshot dapat memengaruhi CEEF terkait. 
           </ModalBody>
           <ModalFooter>
-            <Button color="danger" onClick={this.toggle}>OK</Button>{' '}
+            <Button color="danger" onClick={this.toggleHapus}>OK</Button>{' '}
             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
           </ModalFooter>
         </Modal>

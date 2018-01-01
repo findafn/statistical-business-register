@@ -3,8 +3,9 @@ import ReactTable from 'react-table';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Container, Row, Col, Input, FormGroup, Label } from 'reactstrap';
 import { Link, NavLink as RRNavLink, withRouter } from 'react-router-dom';
+import axios from 'axios';
 
-
+import config from '../../config';
 import { makeData, Logo, Tips } from "./Utils";
 import BuatSnapshot from './BuatSnapshot';
 import HapusSnapshot from './HapusSnapshot';
@@ -13,7 +14,7 @@ class Snapshot extends React.Component {
   constructor() {
     super();
     this.state = {
-      data: makeData(),
+      data: [],
       isOpen: false,
       modal: false,
       idSnapshot: '0',
@@ -23,6 +24,25 @@ class Snapshot extends React.Component {
     };
     this.toggleModal = this.toggleModal.bind(this);
     this.onChangeNama = this.onChangeNama.bind(this);
+  }
+
+  componentDidMount() {
+    const urlEstablishment = config.liveSBRUrl + '/snapshot';
+    axios.get(urlEstablishment)
+      .then(({ data }) => {
+        if (data.success) {
+          this.setState(p => ({
+            ...p,
+            data : data.result,
+          }));
+        } else {
+          alert(data.message);
+        }
+        console.log('data ', {data});
+      })
+      .catch(err => {
+        console.log("Tidak bisa mendapatkan data establishment");
+      });
   }
 
   toggleModal() {
@@ -63,18 +83,22 @@ class Snapshot extends React.Component {
             </Modal> */}
           </div>
         </div>
-        <div className="loc-center">Jumlah Total Perusahaan :</div>
+        <div className="loc-center">Jumlah Total Snapshot : {this.state.data.length}</div>
         <div>
           <ReactTable
             data={data}
             columns={[
               {
+                Header: "Nomor Snapshot",
+                accessor: "nomorSnapshot"
+              },
+              {
                 Header: "Nama Snapshot",
-                accessor: "namaSnapshot"
+                accessor: "nama"
               },
               {
                 Header: "Tanggal Pembuatan",
-                accessor: "tanggalPembuatan"
+                accessor: "tanggal"
               },
               {
                 Header: "Creator",
@@ -93,7 +117,7 @@ class Snapshot extends React.Component {
                 maxWidth: 50,
                 Cell: row => (
                   <div>
-                    <HapusSnapshot />
+                    <HapusSnapshot namaSnapshot={d => d.nomorSnapshot}/>
                     {/* <Button color="danger" onClick={this.toggleModal}>x</Button>
                     <Modal isOpen={this.state.modal} Modal={this.toggleModal} className={this.props.className}>
                       <ModalHeader toggle={this.toggleModal}>Hapus Snapshot</ModalHeader>
