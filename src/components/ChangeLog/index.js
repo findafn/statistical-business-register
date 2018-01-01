@@ -13,10 +13,10 @@ class ChangeLog extends React.Component {
 
     if (this.props.idChange == '2') {
       tableLog =
-        <UmumLog />
+        <UmumLog data={this.props.data}/>
     } else if (this.props.idChange == '3') {
       tableLog =
-        <IndikatorLog />
+        <IndikatorLog data={this.props.data}/>
     }
     return (
       <div>

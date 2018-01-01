@@ -6,50 +6,35 @@ import ReactTable from 'react-table';
 import { makeData, Logo, Tips } from "./Utils";
 
 class IndikatorLog extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      data: makeData()
-    };
-  }
   render() {
-    const { data } = this.state;
     return (
       <div>
         <ReactTable
-          data={data}
+          data={this.props.data}
           columns={[
             {
               Header: "Tanggal Perubahan",
-              accessor: "tanggalPerubahan"
+              accessor: "pembaruanTerakhir"
             },
             {
               Header: "Asal Perubahan",
-              accessor: "asalPerubahan"
-            },
-            {
-              Header: "Nama Perusahaan",
-              accessor: "namaPerusahaan"
-            },
-            {
-              Header: "Nama Komersial",
-              accessor: "namaKomersial"
+              accessor: "updaterTerakhir"
             },
             {
               Header: "Nilai Produksi",
-              accessor: "nilaiProduksi"
+              accessor: "nilaiProduksiNew"
             },
             {
               Header: "Nilai Balas Jasa",
-              accessor: "nilaiBalaiJasa"
+              accessor: "nilaiUpahNew"
             },
             {
               Header: "Total Tenaga Kerja",
-              accessor: "tenagaKerja"
+              accessor: "totalNakerNew"
             },
             {
               Header: "Nilai Pengeluaran",
-              accessor: "nilaiPengeluaran"
+              accessor: "nilaiPengeluaranNew"
             },
           ]}
           defaultPageSize={10}

@@ -6,70 +6,64 @@ import ReactTable from 'react-table';
 import { makeData, Logo, Tips } from "./Utils";
 
 class UmumLog extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      data: makeData()
-    };
-  }
   render() {
-    const { data } = this.state;
+
     return (
       <div>
         <ReactTable
-          data={data}
+          data={this.props.data}
           columns={[
             {
               Header: "Tanggal Perubahan",
-              accessor: "tanggalPerubahan"
+              accessor: "pembaruanTerakhir"
             },
             {
               Header: "Asal Perubahan",
-              accessor: "asalPerubahan"
+              accessor: "updaterTerakhir"
             },
             {
               Header: "Nama Perusahaan",
-              accessor: "namaPerusahaan"
+              accessor: "namaPerusahaanNew"
             },
             {
               Header: "Nama Komersial",
-              accessor: "namaKomersial"
+              accessor: "namaKomersialNew"
             },
             {
               Header: "Unit Statistik",
-              accessor: "unitStatistik"
+              accessor: "unitStatistikNew"
             },
             {
               Header: "Kegiatan Utama",
-              accessor: "kegiatanUtama"
+              accessor: "kegiatanUtamaNew"
             },
             {
               Header: "Kategori KBLI",
-              accessor: "kategoriKBLI"
+              accessor: "katKBLINew"
             },
             {
               Header: "Produk Utama",
-              accessor: "produkUtama"
+              accessor: "produkUtamaNew"
             },
             {
               Header: "Kode KBLI",
-              accessor: "kodeKBLI"
+              accessor: "kodeKBLINew"
             },
             {
               Header: "Alamat",
-              accessor: "alamat"
+              accessor: "alamatNew"
             },
             {
               Header: "Kabupaten/Kota",
-              accessor: "kota"
+              accessor: "kodeKabKotNew"
             },
             {
               Header: "Provinsi",
-              accessor: "provinsi"
+              accessor: "kodeProvNew"
             },
             {
               Header: "Status",
-              accessor: "status"
+              accessor: "statusNew"
             },
           ]}
           defaultPageSize={10}

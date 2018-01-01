@@ -7,71 +7,40 @@ import ButtonChange from '../../commons/ButtonChange';
 class Indikator extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      idSBR: '',
-      namaPerusahaan: 'tes',
-      namaKomersial: '',
-      nilaiProduksi: '',
-      nilaiBalasJasa: '',
-      totalTenagaKerja: '',
-      nilaiPengeluaran: '',
-    };
-   
     this.onChangePerusahaan = this.onChangePerusahaan.bind(this);
     this.onChangeKomersial = this.onChangeKomersial.bind(this);
     this.onChangeProduksi = this.onChangeProduksi.bind(this);
     this.onChangeBalasJasa = this.onChangeBalasJasa.bind(this);
     this.onChangeTenagaKerja = this.onChangeTenagaKerja.bind(this);
     this.onChangePengeluaran = this.onChangePengeluaran.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.onClickChange = this.onClickChange.bind(this);
+    this.onClickSave = this.onClickSave.bind(this);
   }
   onChangePerusahaan(e) {
-    this.setState(p => ({
-      ...p,
-      namaPerusahaan: e.target.value,
-    }));
-    console.log('typed');
-    e.persist();
+    this.props.onChangePerusahaan(e.target.value);
   }
   onChangeKomersial(e) {
-    this.setState(p => ({
-      ...p,
-      namaKomersial: e.target.value,
-    }));
-    e.persist();
+    this.props.onChangeKomersial(e.target.value);
   }
   onChangeProduksi(e) {
-    this.setState(p => ({
-      ...p,
-      nilaiProduksi: e.target.value,
-    }));
-    e.persist();
+    this.props.onChangeProduksi(e.target.value);
   }
   onChangeBalasJasa(e) {
-    this.setState(p => ({
-      ...p,
-      nilaiBalasJasa: e.target.value,
-    }));
-    e.persist();
+    this.props.onChangeBalasJasa(e.target.value);
   }
   onChangeTenagaKerja(e) {
-    this.setState(p => ({
-      ...p,
-      totalTenagaKerja: e.target.value,
-    }));
-    e.persist();
+    this.props.onChangeTenagaKerja(e.target.value);
   }
   onChangePengeluaran(e) {
-    this.setState(p => ({
-      ...p,
-      nilaiPengeluaran: e.target.value,
-    }));
-    e.persist();
+    this.props.onChangePengeluaran(e.target.value);
   }
-  handleSubmit(e) {
-    e.preventDefault();
-    console.log('state: ', this.state);
+  onClickSave() {
+    this.props.onClickSave();
   }
+  onClickChange() {
+    this.props.onClickChange();
+  }
+
   render() {
     return (
       <div className="detail-box">
@@ -80,45 +49,45 @@ class Indikator extends React.PureComponent {
           <FormGroup row>
             <Label for="Nama-Perusahaan" sm={5}>Nama Perusahaan</Label>
             <Col sm={7}>
-              <Input type="text" name="text" id="Nama-Perusahaan" value={this.state.namaPerusahaan} onChange={this.onChangePerusahaan} />
+              <Input type="text" disabled={!this.props.enable} value={this.props.data.namaPerusahaan} onChange={this.onChangePerusahaan} />
             </Col>
           </FormGroup>
           <FormGroup row>
             <Label for="Nama-Komersial" sm={5}>Nama Komersial</Label>
             <Col sm={7}>
-              <Input type="text" name="text" id="Nama-Komersial"value={this.state.namaKomersial} onChange={this.onChangeKomersial} />
+              <Input type="text" disabled={!this.props.enable} value={this.props.data.namaKomersial} onChange={this.onChangeKomersial} />
             </Col>
           </FormGroup>
           <FormGroup row>
             <Label for="Nilai-Produksi" sm={5}>Nilai Produksi/ Pendapatan/ Penjualan selama 1 thn (Rp)</Label>
             <Col sm={7}>
-              <Input type="text" name="text" id="Nilai-Produksi" value={this.state.nilaiProduksi} onChange={this.onChangeProduksi} />
+              <Input type="text" disabled={!this.props.enable} value={this.props.data.nilaiProduksi} onChange={this.onChangeProduksi} />
             </Col>
           </FormGroup>
           <FormGroup row>
             <Label for="Nama Perusahaan" sm={5}>Nilai Balas Jasa Pekerja/ gaji selama 1 thn (Rp)</Label>
             <Col sm={7}>
-              <Input type="text" name="text" id="Nama-Perusahaan" value={this.state.nilaiBalasJasa} onChange={this.onChangeBalasJasa} />
+              <Input type="text" disabled={!this.props.enable} value={this.props.data.nilaiUpah} onChange={this.onChangeBalasJasa} />
             </Col>
           </FormGroup>
           <FormGroup row>
             <Label for="Nama Perusahaan" sm={5}>Total Tenaga Kerja (org)</Label>
             <Col sm={7}>
-              <Input type="text" name="text" id="Nama-Perusahaan" vvalue={this.state.totalTenagaKerja} onChange={this.onChangeTenagaKerja} />
+              <Input type="text" disabled={!this.props.enable} value={this.props.data.totalNaker} onChange={this.onChangeTenagaKerja} />
             </Col>
           </FormGroup>
           <FormGroup row>
             <Label for="Nama Perusahaan" sm={5}>Nilai Pengeluaran selama 1 thn (Rp)</Label>
             <Col sm={7}>
-              <Input type="text" name="text" id="Nama-Perusahaan" value={this.state.nilaiPengeluaran} onChange={this.onChangePengeluaran} />
+              <Input type="text" disabled={!this.props.enable} value={this.props.data.nilaiPengeluaran} onChange={this.onChangePengeluaran} />
             </Col>
           </FormGroup>
           <Row>
             <Col xs="9">
-              <ButtonSave idSBR={this.state.idSBR} />
+              <ButtonSave idSBR={this.props.data.idSBR} onClickSave={this.onClickSave} enable={this.props.enable} />
             </Col>
             <Col xs="3">
-              <ButtonChange idSBR={this.state.idSBR} />
+              <ButtonChange idSBR={this.props.data.idSBR} onClickChange={this.onClickChange} enable={this.props.enable}/>
             </Col>
           </Row>
         </Form>

@@ -7,20 +7,6 @@ import ButtonChange from '../../commons/ButtonChange';
 class Umum extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      idSBR: '',
-      namaPerusahaan: 'tes',
-      namaKomersial: '',
-      unitStatistik: '',
-      kegiatanUtama: '',
-      katKBLI: '',
-      produkUtama: '',
-      kodeKBLI: '',
-      alamat: '',
-      kodeKotKab: '',
-      kodeProv: '',
-      status: '',
-    };
     this.onChangeSearch = this.onChangeSearch.bind(this);
     this.onChangePerusahaan = this.onChangePerusahaan.bind(this);
     this.onChangeKomersial = this.onChangeKomersial.bind(this);
@@ -33,7 +19,8 @@ class Umum extends React.PureComponent {
     this.onChangeKota = this.onChangeKota.bind(this);
     this.onChangeProvinsi = this.onChangeProvinsi.bind(this);
     this.onChangeStatus = this.onChangeStatus.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.onClickChange = this.onClickChange.bind(this);
+    this.onClickSave = this.onClickSave.bind(this);
   }
   onChangeSearch(idSBR) {
     this.setState(p => ({
@@ -42,163 +29,123 @@ class Umum extends React.PureComponent {
     }));
   }
   onChangePerusahaan(e) {
-    this.setState(p => ({
-      ...p,
-      namaPerusahaan: e.target.value,
-    }));
-    e.persist();
+    this.props.onChangePerusahaan(e.target.value);
   }
   onChangeKomersial(e) {
-    this.setState(p => ({
-      ...p,
-      namaKomersial: e.target.value,
-    }));
-    e.persist();
+    this.props.onChangeKomersial(e.target.value);
   }
   onChangeStatistik(e) {
-    this.setState(p => ({
-      ...p,
-      unitStatistik: e.target.value,
-    }));
-    e.persist();
+    this.props.onChangeStatistik(e.target.value);
   }
   onChangeKegiatan(e) {
-    this.setState(p => ({
-      ...p,
-      kegiatanUtama: e.target.value,
-    }));
-    e.persist();
+    this.props.onChangeKegiatan(e.target.value);
   }
   onChangeKategori(e) {
-    this.setState(p => ({
-      ...p,
-      katKBLI: e.target.value,
-    }));
-    e.persist();
+    this.props.onChangeKategori(e.target.value);
   }
   onChangeProduk(e) {
-    this.setState(p => ({
-      ...p,
-      produkUtama: e.target.value,
-    }));
-    e.persist();
+    this.props.onChangeProduk(e.target.value);
   }
   onChangeKode(e) {
-    this.setState(p => ({
-      ...p,
-      kodeKBLI: e.target.value,
-    }));
-    e.persist();
+    this.props.onChangeKode(e.target.value);
   }
   onChangeAlamat(e) {
-    this.setState(p => ({
-      ...p,
-      alamat: e.target.value,
-    }));
-    e.persist();
+    this.props.onChangeAlamat(e.target.value);
   }
   onChangeKota(e) {
-    this.setState(p => ({
-      ...p,
-      kodeKotKab: e.target.value,
-    }));
-    e.persist();
+    this.props.onChangeKota(e.target.value);
   }
   onChangeProvinsi(e) {
-    this.setState(p => ({
-      ...p,
-      kodeProv: e.target.value,
-    }));
-    e.persist();
+    this.props.onChangeProvinsi(e.target.value);
   }
   onChangeStatus(e) {
-    this.setState(p => ({
-      ...p,
-      status: e.target.value,
-    }));
-    e.persist();
+    this.props.onChangeStatus(e.target.value);
   }
-  handleSubmit(e) {
-    e.preventDefault();
-    console.log('state: ', this.state);
+  onClickSave() {
+    this.props.onClickSave();
   }
+  onClickChange() {
+    this.props.onClickChange();
+  }
+
   render() {
+    
     return (
       <div className="detail-box">
         <p><b>Detail Perusahaan</b></p>
-        <Form onSubmit={this.handleSubmit}>
+        <Form>
           <FormGroup row>
-            <Label for="Nama-Perusahaan" sm={5}>Nama Perusahaan</Label>
+            <Label sm={5}>Nama Perusahaan</Label>
             <Col sm={7}>
-              <Input type="text" name="text" id="Nama-Perusahaan" value={this.props.data.namaPerusahaan} onChange={this.onChangePerusahaan} />
+              <Input type="text" disabled={!this.props.enable} value={this.props.data.namaPerusahaan} onChange={this.onChangePerusahaan} />
             </Col>
           </FormGroup>
           <FormGroup row>
-            <Label for="Nama-Komersial" sm={5}>Nama Komersial</Label>
+            <Label sm={5}>Nama Komersial</Label>
             <Col sm={7}>
-              <Input type="text" name="text" id="Nama-Komersial" value={this.props.data.namaKomersial} onChange={this.onChangeKomersial} />
+              <Input type="text" disabled={!this.props.enable} value={this.props.data.namaKomersial} onChange={this.onChangeKomersial} />
             </Col>
           </FormGroup>
           <FormGroup row>
-            <Label for="Unit-Statistik" sm={5}>Unit Statistik</Label>
+            <Label sm={5}>Unit Statistik</Label>
             <Col sm={7}>
-              <Input type="text" name="text" id="Unit-Statistik" value={this.props.data.unitStatistik} onChange={this.onChangeStatistik} />
+              <Input type="text" disabled={!this.props.enable} value={this.props.data.unitStatistik} onChange={this.onChangeStatistik} />
             </Col>
           </FormGroup>
           <FormGroup row>
-            <Label for="Nama Perusahaan" sm={5}>Kegiatan Utama</Label>
+            <Label sm={5}>Kegiatan Utama</Label>
             <Col sm={7}>
-              <Input type="text" name="text" id="Nama-Perusahaan" vvalue={this.props.data.kegiatanUtama} onChange={this.onChangeKegiatan} />
+              <Input type="text" disabled={!this.props.enable} vvalue={this.props.data.kegiatanUtama} onChange={this.onChangeKegiatan} />
             </Col>
           </FormGroup>
           <FormGroup row>
-            <Label for="Nama Perusahaan" sm={5}>Kategori KBLI</Label>
+            <Label sm={5}>Kategori KBLI</Label>
             <Col sm={7}>
-              <Input type="text" name="text" id="Nama-Perusahaan" value={this.props.data.katKBLI} onChange={this.onChangeKategori} />
+              <Input type="text" disabled={!this.props.enable} value={this.props.data.kategoriKBLI} onChange={this.onChangeKategori} />
             </Col>
           </FormGroup>
           <FormGroup row>
-            <Label for="Nama Perusahaan" sm={5}>Produk Utama</Label>
+            <Label sm={5}>Produk Utama</Label>
             <Col sm={7}>
-              <Input type="text" name="text" id="Nama-Perusahaan" value={this.props.data.produkUtama} onChange={this.onChangeProduk} />
+              <Input type="text" disabled={!this.props.enable} value={this.props.data.produkUtama} onChange={this.onChangeProduk} />
             </Col>
           </FormGroup>
           <FormGroup row>
             <Label for="Nama-Komersial" sm={5}>Kode KBLI</Label>
             <Col sm={7}>
-              <Input type="text" name="text" id="Nama-Komersial" value={this.props.data.kodeKBLI} onChange={this.onChangeKode} />
+              <Input type="text" disabled={!this.props.enable} value={this.props.data.kodeKBLI} onChange={this.onChangeKode} />
             </Col>
           </FormGroup>
           <FormGroup row>
             <Label for="Unit-Statistik" sm={5}>Alamat</Label>
             <Col sm={7}>
-              <Input type="text" name="text" id="Unit-Statistik" value={this.props.data.alamat} onChange={this.onChangeAlamat} />
+              <Input type="text" disabled={!this.props.enable} value={this.props.data.alamat} onChange={this.onChangeAlamat} />
             </Col>
           </FormGroup>
           <FormGroup row>
-            <Label for="Nama Perusahaan" sm={5}>Kabupaten/Kota</Label>
+            <Label sm={5}>Kabupaten/Kota</Label>
             <Col sm={7}>
-              <Input type="text" name="text" id="Nama-Perusahaan" value={this.props.data.kodeKotKab} onChange={this.onChangeKota} />
+              <Input type="text" disabled={!this.props.enable} value={this.props.data.kodeKabKot} onChange={this.onChangeKota} />
             </Col>
           </FormGroup>
           <FormGroup row>
-            <Label for="Nama Perusahaan" sm={5}>Provinsi</Label>
+            <Label sm={5}>Provinsi</Label>
             <Col sm={7}>
-              <Input type="text" name="text" id="Nama-Perusahaan" value={this.props.data.kodeProv} onChange={this.onChangeProvinsi} />
+              <Input type="text" disabled={!this.props.enable} value={this.props.data.kodeProv} onChange={this.onChangeProvinsi} />
             </Col>
           </FormGroup>
           <FormGroup row>
-            <Label for="Nama Perusahaan" sm={5}>Status</Label>
+            <Label sm={5}>Status</Label>
             <Col sm={7}>
-              <Input type="text" name="text" id="Nama-Perusahaan" value={this.props.data.status} onChange={this.onChangestatus} />
+              <Input type="text" disabled={!this.props.enable} value={this.props.data.status} onChange={this.onChangeStatus} />
             </Col>
           </FormGroup>
           <Row>
             <Col xs="9">
-              <ButtonSave idSBR={this.props.data.idSBR} />
+              <ButtonSave idSBR={this.props.data.idSBR} onClickSave={this.onClickSave} enable={this.props.enable}/>
             </Col>
             <Col xs="3">
-              <ButtonChange idSBR={this.props.data.idSBR} />
+              <ButtonChange idSBR={this.props.data.idSBR} onClickChange={this.onClickChange} enable={this.props.enable}/>
             </Col>
           </Row>
         </Form>

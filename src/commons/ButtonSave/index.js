@@ -7,11 +7,11 @@ class ButtonSave extends React.PureComponent {
     this.handleClick = this.handleClick.bind(this);
   }
   handleClick() {
-    console.log('id ',this.props.idSBR);
+    this.props.onClickSave();
   }
   render() {
     return (
-        <Button color="info" disabled onClick={this.handleClick} className="detail-btn">Simpan</Button>
+        <Button color="info"  disabled={!this.props.enable} onClick={this.handleClick} className="detail-btn">Simpan</Button>
     );   
   }
 
