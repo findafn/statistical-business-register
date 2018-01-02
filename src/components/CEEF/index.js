@@ -308,12 +308,12 @@ class CEEF extends React.Component {
                 accessor: "deskripsi"
               },
               {
-                accessor: "delete",
+                accessor: "nomorCEEF",
                 maxWidth: 50,
                 Cell: row => (
                   <div>
                     {/* <Button color="danger" onClick={this.toggleModal}>x</Button> */}
-                    <HapusCEEF />
+                    <HapusCEEF nomorCEEF={row.value}/>
                     {/* <Modal isOpen={this.state.toggleModal} toggle={this.toggleModal} className={this.props.className}>
                       <ModalHeader toggle={this.toggleModal}>Hapus CEEF</ModalHeader>
                       <ModalBody>
@@ -329,11 +329,11 @@ class CEEF extends React.Component {
                 )
               },
               {
-                accessor: "export",
+                accessor: "nomorCEEF",
                 maxWidth: 50,
                 Cell: row => (
                   <div>
-                    <a href="http://github.com" target="_blank" > <Button color="success" onClick={this.toggleModal}>v</Button></a>
+                    <a href={"http://livesbr.adyanf.com/api/ceef/" + row.value} target="_blank" > <Button color="success" onClick={this.toggleModal}>v</Button></a>
                   </div>
                 )
               }
