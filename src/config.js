@@ -1,5 +1,5 @@
 module.exports = {
-    liveSBRUrl : 'https://livesbr.adyanf.com/api',
-    sbrAuditTableUrl : 'https://sbraudittable.adyanf.com/api',
-    adauServiceUrl : 'https://adau.adyanf.com/api',
+    liveSBRUrl : 'http://localhost:3001/api',
+    sbrAuditTableUrl : 'http://localhost:3002/api',
+    adauServiceUrl : 'http://localhost:3003/api',
   }

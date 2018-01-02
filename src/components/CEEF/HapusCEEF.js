@@ -23,7 +23,8 @@ class HapusCEEF extends React.Component {
   }
 
   toggleHapus() {
-    axios.delete(config.liveSBRUrl + '/ceef/' + this.props.nomorCEEF)
+    const { nomorCEEF } = this.props;
+    axios.delete(config.liveSBRUrl + '/ceef/' + nomorCEEF)
     .then(({data}) => {
       if (data.success) {
         alert(data.message);

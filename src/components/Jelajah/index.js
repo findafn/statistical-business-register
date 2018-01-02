@@ -63,6 +63,14 @@ class Jelajah extends React.Component {
             data={data}
             columns={[
               {
+                Header: "ID SBR",
+                accessor: "idSBR"
+              },
+              {
+                Header: "NPWP",
+                accessor: "npwp"
+              },
+              {
                 Header: "Nama Perusahaan",
                 accessor: "namaPerusahaan"
               },

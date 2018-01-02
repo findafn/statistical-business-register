@@ -9,7 +9,7 @@ class HapusSnapshot extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: false
+      modal: false,
     };
 
     this.toggle = this.toggle.bind(this);
@@ -23,7 +23,8 @@ class HapusSnapshot extends React.Component {
   }
 
   toggleHapus() {
-    axios.delete(config.liveSBRUrl + '/snapshot/' + this.props.nomorSnapshot)
+    const { nomorSnapshot } = this.props;
+    axios.delete(config.liveSBRUrl + '/snapshot/' + nomorSnapshot)
     .then(({data}) => {
       if (data.success) {
         alert(data.message);
@@ -44,6 +45,7 @@ class HapusSnapshot extends React.Component {
   }
 
   render() {
+    console.log(this.props.nomorSnapshot);
     return (
       <div>
         <Button color="danger" onClick={this.toggle}>x</Button>

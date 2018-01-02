@@ -333,7 +333,7 @@ class CEEF extends React.Component {
                 maxWidth: 50,
                 Cell: row => (
                   <div>
-                    <a href={"http://livesbr.adyanf.com/api/ceef/" + row.value} target="_blank" > <Button color="success" onClick={this.toggleModal}>v</Button></a>
+                    <a href={config.liveSBRUrl + '/ceef/' + row.value} target="_blank" > <Button color="success" onClick={this.toggleModal}>v</Button></a>
                   </div>
                 )
               }

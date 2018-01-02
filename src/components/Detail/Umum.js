@@ -10,6 +10,7 @@ class Umum extends React.PureComponent {
     this.onChangeSearch = this.onChangeSearch.bind(this);
     this.onChangePerusahaan = this.onChangePerusahaan.bind(this);
     this.onChangeKomersial = this.onChangeKomersial.bind(this);
+    this.onChangeNPWP = this.onChangeNPWP.bind(this);
     this.onChangeStatistik = this.onChangeStatistik.bind(this);
     this.onChangeKegiatan = this.onChangeKegiatan.bind(this);
     this.onChangeKategori = this.onChangeKategori.bind(this);
@@ -33,6 +34,9 @@ class Umum extends React.PureComponent {
   }
   onChangeKomersial(e) {
     this.props.onChangeKomersial(e.target.value);
+  }
+  onChangeNPWP(e) {
+    this.props.onChangeNPWP(e.target.value);
   }
   onChangeStatistik(e) {
     this.props.onChangeStatistik(e.target.value);
@@ -84,6 +88,12 @@ class Umum extends React.PureComponent {
             <Label sm={5}>Nama Komersial</Label>
             <Col sm={7}>
               <Input type="text" disabled={!this.props.enable} value={this.props.data.namaKomersial} onChange={this.onChangeKomersial} />
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label sm={5}>NPWP</Label>
+            <Col sm={7}>
+              <Input type="text" disabled={!this.props.enable} value={this.props.data.npwp} onChange={this.onChangeNPWP} />
             </Col>
           </FormGroup>
           <FormGroup row>

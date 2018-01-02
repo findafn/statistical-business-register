@@ -27,6 +27,7 @@ class Detail extends React.PureComponent {
     this.handleClickSearch = this.handleClickSearch.bind(this);
     this.onChangePerusahaan = this.onChangePerusahaan.bind(this);
     this.onChangeKomersial = this.onChangeKomersial.bind(this);
+    this.onChangeNPWP = this.onChangeNPWP.bind(this);
     this.onChangeStatistik = this.onChangeStatistik.bind(this);
     this.onChangeKegiatan = this.onChangeKegiatan.bind(this);
     this.onChangeKategori = this.onChangeKategori.bind(this);
@@ -49,6 +50,7 @@ class Detail extends React.PureComponent {
       idSBR: '',
       namaPerusahaan: '',
       namaKomersial: '',
+      npwp: '',
       kegiatanUtama: '',
       kategoriKBLI: '',
       produkUtama: '',
@@ -121,6 +123,12 @@ class Detail extends React.PureComponent {
     this.setState(p => ({
       ...p,
       namaKomersial: e,
+    }));
+  }
+  onChangeNPWP(e) {
+    this.setState(p => ({
+      ...p,
+      npwp: e,
     }));
   }
   onChangeStatistik(e) {
@@ -206,10 +214,10 @@ class Detail extends React.PureComponent {
     const { idSBR } = this.state;
     const pembaruanTerakhir = Date.now();
     const updaterTerakhir = 'SBR';
-    const { namaPerusahaan, namaKomersial, kegiatanUtama, kategoriKBLI, produkUtama, kodeKBLI,
+    const { namaPerusahaan, npwp, namaKomersial, kegiatanUtama, kategoriKBLI, produkUtama, kodeKBLI,
       alamat, kodeKabKot, kodeProv, unitStatistik, status } = this.state;
     const dataEstablishment = {
-      namaPerusahaan, namaKomersial, kegiatanUtama, kategoriKBLI, produkUtama, kodeKBLI,
+      namaPerusahaan, namaKomersial, npwp, kegiatanUtama, katKBLI : kategoriKBLI, produkUtama, kodeKBLI,
       alamat, kodeKabKot, kodeProv, unitStatistik, status, pembaruanTerakhir, updaterTerakhir
     };
     const { nilaiProduksi, nilaiUpah, totalNaker, nilaiPengeluaran } = this.state;
@@ -271,9 +279,6 @@ class Detail extends React.PureComponent {
     axios.get(urlIndicatorAudit)
       .then(({ data }) => {
         if (data.success) {
-          // data.result.forEach((audit) => {
-          //   audit.pembaruanTerakhir = new Date(audit.pembaruanTerakhir);
-          // })
           this.setState(p => ({
             ...p,
             dataIdk: data.result,
@@ -291,6 +296,7 @@ class Detail extends React.PureComponent {
             ...p,
             namaPerusahaan: data.result.namaPerusahaan,
             namaKomersial: data.result.namaKomersial,
+            npwp: data.result.npwp,
             kegiatanUtama: data.result.kegiatanUtama,
             kategoriKBLI: data.result.katKBLI,
             produkUtama: data.result.produkUtama,
@@ -334,6 +340,7 @@ class Detail extends React.PureComponent {
       dataIdk,
       namaPerusahaan,
       namaKomersial,
+      npwp,
       kegiatanUtama,
       kategoriKBLI,
       produkUtama,
@@ -352,6 +359,7 @@ class Detail extends React.PureComponent {
     const data1 = {
       namaPerusahaan,
       namaKomersial,
+      npwp,
       kegiatanUtama,
       kategoriKBLI,
       produkUtama,
@@ -450,6 +458,7 @@ class Detail extends React.PureComponent {
                         data={data1}
                         onChangePerusahaan={this.onChangePerusahaan}
                         onChangeKomersial={this.onChangeKomersial}
+                        onChangeNPWP={this.onChangeNPWP}
                         onChangeKegiatan={this.onChangeKegiatan}
                         onChangeKategori={this.onChangeKategori}
                         onChangeProduk={this.onChangeProduk}
