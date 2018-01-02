@@ -113,11 +113,11 @@ class Snapshot extends React.Component {
                 accessor: "jumlahEstAktif"
               },
               {
-                accessor: "delete",
+                accessor: "nomorSnapshot",
                 maxWidth: 50,
                 Cell: row => (
                   <div>
-                    <HapusSnapshot namaSnapshot={d => d.nomorSnapshot}/>
+                    <HapusSnapshot nomorSnapshot={row.value}/>
                     {/* <Button color="danger" onClick={this.toggleModal}>x</Button>
                     <Modal isOpen={this.state.modal} Modal={this.toggleModal} className={this.props.className}>
                       <ModalHeader toggle={this.toggleModal}>Hapus Snapshot</ModalHeader>
