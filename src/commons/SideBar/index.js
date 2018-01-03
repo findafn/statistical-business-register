@@ -11,18 +11,27 @@ class SideBar extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.toggle = this.toggle.bind(this);
     this.state = {
-      activeItem: 'Jelajahi-Data-SBR'
+      activeItem: 'Jelajahi-Data-SBR',
+      updateCEEF: false,
     };
+    this.toggle = this.toggle.bind(this);
+    this.toggleCEEF = this.toggleCEEF.bind(this);
   }
 
   toggle(Item) {
     if (this.state.activeItem !== Item) {
       this.setState({
-        activeItem: Item
+        activeItem: Item,
       });
     }
+  }
+
+  toggleCEEF() {
+    console.log('toogleCEEF');
+    this.setState({
+      updateCEEF : !this.state.updateCEEF,
+    });
   }
 
   render() {
@@ -53,12 +62,12 @@ class SideBar extends React.PureComponent {
         </TabPane>
         <TabPane tabId="Snapshot">
           <Segment>
-            <Snapshot />
+            <Snapshot toggleCEEF={this.toggleCEEF} />
           </Segment>
         </TabPane>
         <TabPane tabId="CEEF">
           <Segment>
-            <CEEF />
+            <CEEF toggleCEEF={this.toggleCEEF} updateCEEF={this.state.updateCEEF}/>
           </Segment>
         </TabPane>
         </TabContent>
