@@ -105,7 +105,7 @@ class Umum extends React.PureComponent {
           <FormGroup row>
             <Label sm={5}>Kegiatan Utama</Label>
             <Col sm={7}>
-              <Input type="text" disabled={!this.props.enable} vvalue={this.props.data.kegiatanUtama} onChange={this.onChangeKegiatan} />
+              <Input type="text" disabled={!this.props.enable} value={this.props.data.kegiatanUtama} onChange={this.onChangeKegiatan} />
             </Col>
           </FormGroup>
           <FormGroup row>
