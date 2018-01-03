@@ -13,7 +13,7 @@ class HapusSnapshot extends React.Component {
     };
 
     this.toggle = this.toggle.bind(this);
-    this.toogleHapus = this.toggleHapus.bind(this);
+    this.toggleHapus = this.toggleHapus.bind(this);
   }
 
   toggle() {
@@ -28,13 +28,17 @@ class HapusSnapshot extends React.Component {
     .then(({data}) => {
       if (data.success) {
         alert(data.message);
+        this.props.onHapusSnapshot(nomorSnapshot);
+        this.setState({
+          modal: !this.state.modal
+        });
       }
       else {
         alert(data.message);
+        this.setState({
+          modal: !this.state.modal
+        });
       }
-      this.setState({
-        modal: !this.state.modal
-      });
     })
     .catch((err) => {
       console.log(err);
@@ -45,7 +49,6 @@ class HapusSnapshot extends React.Component {
   }
 
   render() {
-    console.log(this.props.nomorSnapshot);
     return (
       <div>
         <Button color="danger" onClick={this.toggle}>x</Button>

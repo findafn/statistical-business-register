@@ -11,7 +11,7 @@ class BuatSnapshot extends React.Component {
       modal: false,
       nama : '',
       creator : '',
-      tanggal : Date.now()
+      tanggal : '',
     };
     this.onChangeNama = this.onChangeNama.bind(this);
     this.onChangeCreator = this.onChangeCreator.bind(this);
@@ -43,24 +43,24 @@ class BuatSnapshot extends React.Component {
     .then(({data}) => {
       if (data.success) {
         alert(data.message);
+        this.props.onTambahSnapshot(data.result);
       } else {
         alert(data.message);
       }
-      this.setState({
-        modal: !this.state.modal
-      });
+      this.toggle();
     })
     .catch((err) => {
       alert('Terjadi error');
-      this.setState({
-        modal: !this.state.modal
-      });
+      this.toggle();
     });
   }
 
   toggle() {
     this.setState({
-      modal: !this.state.modal
+      modal: !this.state.modal,
+      nama: '',
+      creator: '',
+      tanggal: Date.now(),
     });
   }
 

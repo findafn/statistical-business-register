@@ -24,9 +24,12 @@ class Snapshot extends React.Component {
     };
     this.toggleModal = this.toggleModal.bind(this);
     this.onChangeNama = this.onChangeNama.bind(this);
+    this.onTambahSnapshot = this.onTambahSnapshot.bind(this);
+    this.onHapusSnapshot = this.onHapusSnapshot.bind(this);
+    this.updateState = this.updateState.bind(this);
   }
 
-  componentDidMount() {
+  updateState() {
     const urlEstablishment = config.liveSBRUrl + '/snapshot';
     axios.get(urlEstablishment)
       .then(({ data }) => {
@@ -35,14 +38,16 @@ class Snapshot extends React.Component {
             ...p,
             data : data.result,
           }));
-        } else {
-          alert(data.message);
         }
         console.log('data ', {data});
       })
       .catch(err => {
         console.log("Tidak bisa mendapatkan data establishment");
       });
+  }
+
+  componentDidMount() {
+    this.updateState();
   }
 
   toggleModal() {
@@ -58,13 +63,33 @@ class Snapshot extends React.Component {
     e.persist();
   }
 
+  onTambahSnapshot(newSnapshot) {
+    let newData = this.state.data;
+    newData.push(newSnapshot);
+    this.setState({
+      data : newData,
+    });
+    this.props.toggleCEEF();
+  }
+
+  onHapusSnapshot(deletedSnapshot) {
+    let newData = this.state.data;
+    newData = newData.filter(snapshot =>
+      snapshot.nomorSnapshot !== deletedSnapshot
+    );
+    this.setState({
+      data : newData,
+    });
+    this.props.toggleCEEF();
+  }
+
   render() {
     const { data } = this.state;
     return (
       <div>
         <div>
           <div>
-            <BuatSnapshot />
+            <BuatSnapshot onTambahSnapshot={this.onTambahSnapshot}/>
             {/* <Button color="info" onClick={this.toggleModal}>Buat Snapshot</Button>
             <Modal isOpen={this.state.modal} toggle={this.toggleModal} className={this.props.className}>
               <ModalHeader toggle={this.toggleModal}>Buat Snapshot</ModalHeader>
@@ -117,7 +142,7 @@ class Snapshot extends React.Component {
                 maxWidth: 50,
                 Cell: row => (
                   <div>
-                    <HapusSnapshot nomorSnapshot={row.value}/>
+                    <HapusSnapshot onHapusSnapshot={this.onHapusSnapshot} nomorSnapshot={row.value}/>
                     {/* <Button color="danger" onClick={this.toggleModal}>x</Button>
                     <Modal isOpen={this.state.modal} Modal={this.toggleModal} className={this.props.className}>
                       <ModalHeader toggle={this.toggleModal}>Hapus Snapshot</ModalHeader>
