@@ -28,34 +28,57 @@ class BuatCEEF extends React.Component {
     this.handleOptStatistik = this.handleOptStatistik.bind(this);
     this.handleOptKode = this.handleOptKode.bind(this);
     this.handleChangeSnapshot = this.handleChangeSnapshot.bind(this);
+    this.updateState = this.updateState.bind(this);
+  }
+
+  updateState() {
+    const urlEstablishment = config.liveSBRUrl + '/snapshot';
+    axios.get(urlEstablishment)
+    .then(({ data }) => {
+      if (data.success) {
+        this.setState(p => ({
+          ...p,
+          snapshot : data.result,
+          nomorSnapshot : (data.success && data.result.length > 0) ? data.result[0].nomorSnapshot : '-' ,
+        }));
+      } else {
+        return;
+      }
+    })
+    .catch((err) => {
+      return;
+    });
   }
 
   toggleOK() {
     const { nama, tanggal, deskripsi, creator, nomorSnapshot, katKBLIs, unitStatistiks } = this.state;
+    if (katKBLIs.length == 0) { katKBLIs.push(''); }
+    if (unitStatistiks.length == 0) { unitStatistiks.push(''); }
     const data = { nama, tanggal, deskripsi, creator, nomorSnapshot, katKBLIs, unitStatistiks };
     const urlCreateCEEF = config.liveSBRUrl + '/ceef';
-    console.log(data);
     axios.post(urlCreateCEEF, data)
     .then(({data}) => {
       if (data.success) {
         alert(data.message);
+        this.props.onTambahCEEF(data.result);
       } else {
         alert(data.message);
       }
-      this.setState({
-        modal: !this.state.modal
-      });
+      this.toggleModal();
     })
     .catch((err) => {
       alert('Terjadi error');
-      this.setState({
-        modal: !this.state.modal
-      });
+      this.toggleModal();
     });
   }
   toggleModal() {
     this.setState({
-      modal: !this.state.modal
+      modal: !this.state.modal,
+      nama: '',
+      creator: '',
+      deskripsi: '',
+      unitStatistiks: [],
+      katKBLIs: [],
     });
   }
   onChangeNama(e) {
@@ -80,13 +103,11 @@ class BuatCEEF extends React.Component {
     this.setState(p => ({
       unitStatistiks: e,
     }));
-    console.log('You have selected:', this.state.unitStatistiks);
   }
   handleOptKode(e) {
     this.setState({
       katKBLIs: e,
     });
-    console.log('You have selected:', this.state.katKBLIs);
   }
 
   handleChangeSnapshot(e){
@@ -97,30 +118,23 @@ class BuatCEEF extends React.Component {
     e.persist();
   }
 
-  componentDidMount() {
-    const urlEstablishment = config.liveSBRUrl + '/snapshot';
-    axios.get(urlEstablishment)
-    .then(({ data }) => {
-      if (data.success) {
-        this.setState(p => ({
-          ...p,
-          snapshot : data.result,
-          nomorSnapshot : data.result[0].nomorSnapshot,
-        }));
-      } else {
-        return;
-      }
-    })
-    .catch((err) => {
-      return;
-    });
+  componentDidUpdate() {
+    if (this.props.updateForm){
+      this.updateState();
+      this.props.changeUpdateForm();
+    }  
   }
+
+  componentDidMount() {
+    this.updateState();
+  }
+
   render() {
     let views = <option>-</option>;
     const {snapshot} = this.state;
     if (snapshot && snapshot.length > 0) {
       views = snapshot.map(s => (
-        <option value={s.nomorSnapshot}>{s.nomorSnapshot}</option>
+        <option key={s.nomorSnapshot} value={s.nomorSnapshot}>{s.nomorSnapshot}</option>
       ))
     }
     return (

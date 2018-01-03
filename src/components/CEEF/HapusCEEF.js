@@ -28,13 +28,17 @@ class HapusCEEF extends React.Component {
     .then(({data}) => {
       if (data.success) {
         alert(data.message);
+        this.props.onHapusCEEF(nomorCEEF);
+        this.setState({
+          modal: !this.state.modal
+        });
       }
       else {
         alert(data.message);
+        this.setState({
+          modal: !this.state.modal
+        });
       }
-      this.setState({
-        modal: !this.state.modal
-      });
     })
     .catch((err) => {
       console.log(err);

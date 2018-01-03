@@ -21,11 +21,49 @@ class CEEF extends React.Component {
       idSBR: '0',
       unitStatistik: '',
       kodeKBLI: 'A',
+      updateForm: false,
     };
     this.onChangeNama = this.onChangeNama.bind(this);
     this.handleOptStatistik = this.handleOptStatistik.bind(this);
     this.handleOptKode = this.handleOptKode.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.onTambahCEEF = this.onTambahCEEF.bind(this);
+    this.onHapusCEEF = this.onHapusCEEF.bind(this);
+    this.updateState = this.updateState.bind(this);
+    this.changeUpdateForm = this.changeUpdateForm.bind(this);
+  }
+
+  updateState() {
+    const urlEstablishment = config.liveSBRUrl + '/ceef';
+    axios.get(urlEstablishment)
+      .then(({ data }) => {
+        if (data.success) {
+          this.setState(p => ({
+            ...p,
+            data : data.result,
+          }));
+        }
+        console.log('data ', {data});
+      })
+      .catch(err => {
+        console.log("Tidak bisa mendapatkan data establishment");
+      });
+  }
+
+  componentDidUpdate() {
+    if (this.props.updateCEEF){
+      this.setState({
+        updateForm: !this.state.updateForm,
+      })
+      this.updateState();
+    }  
+  }
+
+  changeUpdateForm() {
+    this.setState({
+      updateForm: !this.state.updateForm,
+    });
+    this.props.toggleCEEF();
   }
 
   onChangeNama(e) {
@@ -54,23 +92,26 @@ class CEEF extends React.Component {
     console.log('state: ', this.state);
   }
   
-  componentDidMount() {
-    const urlEstablishment = config.liveSBRUrl + '/ceef';
-    axios.get(urlEstablishment)
-      .then(({ data }) => {
-        if (data.success) {
-          this.setState(p => ({
-            ...p,
-            data : data.result,
-          }));
-        } else {
-          alert(data.message);
-        }
-        console.log('data ', {data});
-      })
-      .catch(err => {
-        console.log("Tidak bisa mendapatkan data establishment");
-      });
+  componentDidMount(){
+    this.updateState();
+  }
+
+  onTambahCEEF(newCEEF) {
+    let newData = this.state.data;
+    newData.push(newCEEF);
+    this.setState({
+      data : newData,
+    });
+  }
+
+  onHapusCEEF(deletedCEEF) {
+    let newData = this.state.data;
+    newData = newData.filter(CEEF =>
+      CEEF.nomorCEEF !== deletedCEEF
+    );
+    this.setState({
+      data : newData,
+    });
   }
 
   render() {
@@ -80,7 +121,10 @@ class CEEF extends React.Component {
         <div>
           <div>
             {/* <Button color="info" onClick={this.toggleModal}>Buat CEEF</Button> */}
-            <BuatCEEF />
+            <BuatCEEF 
+              onTambahCEEF={this.onTambahCEEF} 
+              changeUpdateForm={this.changeUpdateForm} 
+              updateForm={this.state.updateForm}/>
             {/* <Modal isOpen={this.state.modal} toggle={this.toggleModal} className={this.props.className}>
               <ModalHeader toggle={this.toggleModal}>Buat CEEF</ModalHeader>
               <ModalBody>
@@ -313,7 +357,7 @@ class CEEF extends React.Component {
                 Cell: row => (
                   <div>
                     {/* <Button color="danger" onClick={this.toggleModal}>x</Button> */}
-                    <HapusCEEF nomorCEEF={row.value}/>
+                    <HapusCEEF nomorCEEF={row.value} onHapusCEEF={this.onHapusCEEF} />
                     {/* <Modal isOpen={this.state.toggleModal} toggle={this.toggleModal} className={this.props.className}>
                       <ModalHeader toggle={this.toggleModal}>Hapus CEEF</ModalHeader>
                       <ModalBody>
